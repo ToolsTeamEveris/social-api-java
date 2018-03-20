@@ -3,6 +3,7 @@ package com.social.manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.social.entity.Event;
 import com.social.entity.Person;
 import com.social.repository.PersonRepository;
 
@@ -21,12 +22,6 @@ public final class PersonManagerImpl implements PersonManager {
 	@Override
 	public Iterable<Person> findAll() {
 		return personRepository.findAll();
-	}
-
-	@Override
-	public Person findById(final Person e) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -64,4 +59,9 @@ public final class PersonManagerImpl implements PersonManager {
 		return null;
 	}
 
+	@Override
+	public Person findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

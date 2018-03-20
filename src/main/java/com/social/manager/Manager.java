@@ -2,7 +2,7 @@ package com.social.manager;
 
 public interface Manager<E> {
 	public Iterable<E> findAll();
-	public E findById(E e);
+	public E findById(Long id);
 	public void save(E e);
 	public void save(Iterable<E> e);
 	public void update(E e);

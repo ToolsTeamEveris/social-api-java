@@ -11,8 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+
 public class Event {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -20,6 +19,35 @@ public class Event {
 	private String name;
 	private Date startingDate;
 	private Date endingDate;
-	private EventType type;
-	private byte[] picture;
+//	private EventType type;
+//	private byte[] picture;
+	
+	
+	public Long getId() {
+		return id;
+	}
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+	public Date getStartingDate() {
+		return startingDate;
+	}
+	public void setStartingDate(Date startingDate) {
+		this.startingDate = startingDate;
+	}
+	
+	
+	public Date getEndingDate() {
+		return endingDate;
+	}
+	public void setEndingDate(Date endingDate) {
+		this.endingDate = endingDate;
+	}
 }
