@@ -1,7 +1,5 @@
 package com.social.manager;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +8,7 @@ import com.social.repository.EventRepository;
 
 
 @Service
-public class EventManagerImpl implements EventManager<Event> {
+public class EventManagerImpl implements EventManager {
 
 	private final EventRepository eventRepository;
 	
@@ -58,7 +56,7 @@ public class EventManagerImpl implements EventManager<Event> {
 
 	@Override
 	public void remove(Event e) {
-		// TODO Auto-generated method stub
+		eventRepository.delete(e);
 		
 	}
 

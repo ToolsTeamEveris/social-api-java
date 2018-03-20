@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.social.entity.Event;
 import com.social.manager.EventManager;
 
-@Controller
+@RestController
 public class EventController {
-	private EventManager manager;
+	
+	private final EventManager manager;
 	
 	@Autowired
 	public EventController(final EventManager eventManager) {
@@ -49,16 +50,17 @@ public class EventController {
 		return new ArrayList<Event>();
 	}
 	
-	@RequestMapping(value="/event", method=RequestMethod.POST)
+	@PostMapping(value="/event")
 	@ResponseBody
 	public void create(@RequestBody Event event) {
 		this.manager.save(event);
 	}
 	
-	@RequestMapping(value="/event/{id}", method=RequestMethod.DELETE)
+	@DeleteMapping(value="/event/{id}")
 	@ResponseBody
-	public void remove(@RequestBody Long id) {
-		
+	public void remove(@PathVariable Long id) {
+		final Event event = manager.findById(id);
+		this.manager.remove(event);
 	}
 	
 	
