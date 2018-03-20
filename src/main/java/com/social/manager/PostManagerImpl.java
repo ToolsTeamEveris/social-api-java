@@ -7,6 +7,8 @@ import com.social.entity.Post;
 
 @Service
 public class PostManagerImpl implements PostManager<Post> {
+	
+	
 
 	@Override
 	public Iterable<Post> findAll() {

@@ -1,32 +1,42 @@
 package com.social.manager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.social.dao.PersonRepository;
 import com.social.entity.Person;
 
 @Service
-public class PersonManagerImpl implements PersonManager<Person> {
+public final class PersonManagerImpl implements PersonManager {
+	
+	
+	private final PersonRepository personRepository;
+	
+	@Autowired
+	public PersonManagerImpl(final PersonRepository personRepository) {
+		this.personRepository = personRepository;
+		
+	}
 
 	@Override
 	public Iterable<Person> findAll() {
+		return personRepository.findAll();
+	}
+
+	@Override
+	public Person findById(final Person e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Person findById(Person e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void save(Person e) {
+	public void save(final Person e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void save(Iterable<Person> e) {
+	public void save(final Iterable<Person> e) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -50,8 +50,8 @@ public class GroupController {
 	
 	@RequestMapping(value = "/group/{id}/relate", method = RequestMethod.POST)
 	@ResponseBody
-	public Person getAll(@PathVariable String id , List<String> list){
-		return new Person();
+	public void getAll(@PathVariable String id , List<String> list){
+//		return new Person();
 	}
 	
 	@RequestMapping(value = "/group/{id}", method = RequestMethod.DELETE)
