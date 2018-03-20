@@ -1,5 +1,7 @@
 package com.social.manager;
 
-public interface EventManager<E> extends Manager<E> {
+import com.social.entity.Event;
 
+public interface EventManager extends Manager<Event> {
+	
 }
