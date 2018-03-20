@@ -2,6 +2,7 @@ package com.social.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,12 @@ import com.social.manager.GroupManagerImpl;
 @RestController
 public class GroupController {
 
-	private GroupManagerImpl manager = new GroupManagerImpl();
+	private GroupManagerImpl manager;
+	
+	@Autowired
+	public GroupController(final GroupManagerImpl groupManager) {
+		this.manager = groupManager;
+	}
 	
 	@RequestMapping(value = "/group", method = RequestMethod.GET)
 	@ResponseBody
@@ -45,8 +51,7 @@ public class GroupController {
 	@RequestMapping(value = "/group/{id}/relate", method = RequestMethod.POST)
 	@ResponseBody
 	public Person getAll(@PathVariable String id , List<String> list){
-	
-		return null;
+		return new Person();
 	}
 	
 	@RequestMapping(value = "/group/{id}", method = RequestMethod.DELETE)
