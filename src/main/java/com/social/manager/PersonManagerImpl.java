@@ -3,8 +3,8 @@ package com.social.manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.social.dao.PersonRepository;
 import com.social.entity.Person;
+import com.social.repository.PersonRepository;
 
 @Service
 public final class PersonManagerImpl implements PersonManager {
@@ -30,9 +30,8 @@ public final class PersonManagerImpl implements PersonManager {
 	}
 
 	@Override
-	public void save(final Person e) {
-		// TODO Auto-generated method stub
-		
+	public void save(final Person nPerson) {
+		this.personRepository.save(nPerson);
 	}
 
 	@Override

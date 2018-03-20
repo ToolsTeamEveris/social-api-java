@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ComponentScan(basePackages = "com.social")
 @EntityScan(basePackages = "com.social.entity") 
-@EnableJpaRepositories(basePackages = "com.social.dao")
+@EnableJpaRepositories(basePackages = "com.social.repository")
 public class SocialApplication {
 
 	public static void main(String[] args) {

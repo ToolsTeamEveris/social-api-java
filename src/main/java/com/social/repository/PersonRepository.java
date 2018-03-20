@@ -1,4 +1,4 @@
-package com.social.dao;
+package com.social.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
