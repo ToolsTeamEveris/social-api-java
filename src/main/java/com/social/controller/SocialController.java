@@ -7,22 +7,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.social.entity.Person;
 import com.social.manager.PersonManager;
-import com.social.manager.PersonManagerImpl;
 
 
 
 @RestController
 public class SocialController  {
 	
-	private PersonManagerImpl manager = new PersonManagerImpl();
+	private final PersonManager manager;
 
-//	public SocialController(final PersonManager personManager) {
-//		this.manager = personManager;
-//	}
-	
-	public SocialController() { }
-	
-	
+	@Autowired
+	public SocialController(final PersonManager personManager) {
+		this.manager = personManager;
+	}
 
 	@GetMapping("/persons")
 	@ResponseBody
