@@ -14,6 +14,21 @@ public class GroupController {
 		return groupList;
 	}
 	
+	public Group getById(Long id) {
+		return null;
+	}
+	
+	public Group create(Group group) {
+		return null;
+	}
+	
+	public Group getByPersonId(Long personId) {
+		return null;
+	}
+	
+	public Group remove(Person person) {
+		return null;
+	}
 	
 	
 }
