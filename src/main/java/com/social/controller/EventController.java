@@ -34,7 +34,7 @@ public class EventController {
 	@GetMapping(value="/event/{id}")
 	@ResponseBody
 	public Event getById(@PathVariable Long id) {
-		return this.manager.findById(id);
+		return (Event) this.manager.findById(id);
 	}
 	
 	@PostMapping(value="/event/{eventId}/person/{personId}/add")
