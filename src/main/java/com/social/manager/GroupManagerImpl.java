@@ -2,6 +2,7 @@ package com.social.manager;
 
 import org.springframework.stereotype.Service;
 
+import com.social.entity.Event;
 import com.social.entity.Group;
 import com.social.entity.Person;
 
@@ -10,12 +11,6 @@ public class GroupManagerImpl implements GroupManager<Group> {
 
 	@Override
 	public Iterable<Group> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Group findById(Group e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -52,6 +47,12 @@ public class GroupManagerImpl implements GroupManager<Group> {
 
 	@Override
 	public Group addPersons(Iterable<Person> person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Group findById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

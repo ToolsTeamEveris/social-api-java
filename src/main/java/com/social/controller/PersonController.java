@@ -13,12 +13,12 @@ import com.social.manager.PersonManager;
 
 
 @RestController
-public class SocialController  {
+public class PersonController  {
 	
 	private final PersonManager manager;
 
 	@Autowired
-	public SocialController(final PersonManager personManager) {
+	public PersonController(final PersonManager personManager) {
 		this.manager = personManager;
 	}
 

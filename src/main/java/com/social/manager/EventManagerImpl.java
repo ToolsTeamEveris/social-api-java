@@ -1,27 +1,40 @@
 package com.social.manager;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import antlr.debug.Event;
+import com.social.entity.Event;
+import com.social.repository.EventRepository;
+
 
 @Service
 public class EventManagerImpl implements EventManager<Event> {
 
+	private final EventRepository eventRepository;
+	
+	@Autowired
+	public EventManagerImpl(final EventRepository eventRepository) {
+		this.eventRepository = eventRepository;
+	}
+
 	@Override
 	public Iterable<Event> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return eventRepository.findAll();
 	}
 
 	@Override
-	public Event findById(Event e) {
-		// TODO Auto-generated method stub
-		return null;
+	public Event findById(Long id) {
+		if (eventRepository.findById(id).isPresent())
+			return eventRepository.findById(id).get();
+		else
+			return null;
 	}
 
 	@Override
-	public void save(Event e) {
-		// TODO Auto-generated method stub
+	public void save(Event newEvent) {
+		eventRepository.save(newEvent);
 		
 	}
 
