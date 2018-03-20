@@ -1,8 +1,11 @@
 package com.social.manager;
 
+import org.springframework.stereotype.Service;
+
 import com.social.entity.Like;
 import com.social.entity.Post;
 
+@Service
 public class PostManagerImpl implements PostManager<Post> {
 	
 	

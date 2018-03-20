@@ -6,6 +6,4 @@ import com.social.entity.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long>{
 
-	
-	
 }

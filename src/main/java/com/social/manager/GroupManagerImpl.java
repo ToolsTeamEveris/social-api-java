@@ -1,8 +1,11 @@
 package com.social.manager;
 
+import org.springframework.stereotype.Service;
+
 import com.social.entity.Group;
 import com.social.entity.Person;
 
+@Service
 public class GroupManagerImpl implements GroupManager<Group> {
 
 	@Override

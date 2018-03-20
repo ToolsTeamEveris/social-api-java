@@ -5,7 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.NoArgsConstructor;
+
 @Entity
+@NoArgsConstructor
 public class Person {
 
 	@Id
@@ -18,6 +21,5 @@ public class Person {
 	public Person(Long id, String name, String surname) {
 		
 	}
-	
 	
 }
