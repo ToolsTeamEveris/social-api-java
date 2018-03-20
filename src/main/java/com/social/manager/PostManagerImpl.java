@@ -4,6 +4,8 @@ import com.social.entity.Like;
 import com.social.entity.Post;
 
 public class PostManagerImpl implements PostManager<Post> {
+	
+	
 
 	@Override
 	public Iterable<Post> findAll() {
