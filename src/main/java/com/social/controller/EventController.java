@@ -52,6 +52,7 @@ public class EventController {
 		return event;
 	}
 	
+	// TODO
 	@GetMapping(value="/event/person/{personId}")
 	@ResponseBody
 	public List<Event> getByPersonId(@PathVariable Long personId) {
@@ -72,9 +73,5 @@ public class EventController {
 		final Event event = eventManager.findById(id);
 		this.eventManager.remove(event);
 	}
-	
-	
-	
-	
 	
 }

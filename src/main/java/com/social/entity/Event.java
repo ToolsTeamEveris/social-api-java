@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -23,7 +24,10 @@ public class Event {
 	@ManyToOne
 	@JoinColumn(name="creator")
 	private Person creator;
-	@OneToMany(mappedBy="id")
+	@OneToMany
+	@JoinTable(
+		      name="assistants",
+		      joinColumns=@JoinColumn(name="Person", referencedColumnName="id"))
 	private List<Person> assistants;
 	private String name;
 	private Date startingDate;
@@ -33,6 +37,7 @@ public class Event {
 	
 	public void addAssistant(Person assitant) {
 		this.assistants.add(assitant);
+		System.out.println("Assistants: " + assistants);
 	}
 	
 	public void deleteAssistant(Person assistant) {

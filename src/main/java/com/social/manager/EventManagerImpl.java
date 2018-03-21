@@ -64,7 +64,9 @@ public class EventManagerImpl implements EventManager {
 
 	@Override
 	public void addPerson(Event event, Person person) {
+		System.out.println(person);
 		event.addAssistant(person);
+		System.out.println(event);
 		eventRepository.save(event);
 	}
 
