@@ -1,5 +1,8 @@
 package com.social.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +36,7 @@ public final class PersonManagerImpl implements PersonManager {
 	
 	@Override
 	public void save(final Person nPerson) {
-		this.personRepository.save(nPerson);
+		this.personRepository.save(nPerson);	
 	}
 
 	@Override
@@ -44,8 +47,7 @@ public final class PersonManagerImpl implements PersonManager {
 
 	@Override
 	public void update(Person e) {
-		// TODO Auto-generated method stub
-		
+		this.personRepository.save(e);	
 	}
 
 	@Override
@@ -56,14 +58,21 @@ public final class PersonManagerImpl implements PersonManager {
 
 	@Override
 	public void remove(Person e) {
-		// TODO Auto-generated method stub
+		personRepository.delete(e);
 		
 	}
 
 	@Override
-	public Person relatePerson(Iterable<Person> person) {
-		// TODO Auto-generated method stub
-		return null;
+	public Person relatePerson(Long id) {
+		Long l = (long) 1000;
+		List<Person> list = new ArrayList<Person>();
+		Person user = findById(l);
+		Person person = findById(id);
+		list = user.getFriends();
+		list.add(person);
+		user.setFriends(list);
+		update(user);
+		return user;
 	}
 
 }

@@ -48,7 +48,7 @@ public class PersonController  {
 	}
 	
 	// TODO getFriends
-	/*@GetMapping(value="/person/{id}/friends")
+	@GetMapping(value="/person/{id}/friends")
 	@ResponseBody
 	public List<Person> GetFriends(@RequestBody Person person) {
 		return person.getFriends();
@@ -57,14 +57,8 @@ public class PersonController  {
 	// TODO relate  -> coger id del token cuando este
 	@PostMapping(value="/person/{id}/relate")
 	@ResponseBody
-	public void relate(@RequestBody Person person) {
-		Long l = (long) 1000;
-		List<Person> list = new ArrayList<Person>();
-		Person user = this.manager.findById(l);
-		list = user.getFriends();
-		list.add(person);
-		user.setFriends(list);
-		this.manager.save(user);
+	public void relate(@PathVariable Long id) {		
+		manager.relatePerson(id);
 	}
 	
 	// TODO ruta que te devuelva todos los amigos de una persona -> por comprobar
@@ -73,7 +67,7 @@ public class PersonController  {
 	public Iterable<Person> getAllFriends(Long id) {
 		Person user = this.manager.findById(id);
 		return user.getFriends();
-	}*/
+	}
 	
 	@DeleteMapping(value="/person/{id}")
 	@ResponseBody
