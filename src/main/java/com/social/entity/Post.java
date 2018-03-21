@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Post {
 
 	@Id
@@ -22,4 +25,5 @@ public class Post {
 	private Date creationDate;
 	private PostType type;
 	private byte[] picture;
+	
 }

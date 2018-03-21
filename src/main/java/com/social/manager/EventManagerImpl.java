@@ -1,5 +1,7 @@
 package com.social.manager;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +35,8 @@ public class EventManagerImpl implements EventManager {
 
 	@Override
 	public void save(Event newEvent) {
-		eventRepository.save(newEvent);
 		
+		eventRepository.save(newEvent);
 	}
 
 
@@ -66,6 +68,10 @@ public class EventManagerImpl implements EventManager {
 	public void addPerson(Event event, Person person) {
 		event.addAssistant(person);
 		eventRepository.save(event);
+	}
+	
+	public List<Event> getByCreatorId(Long id) {
+		return eventRepository.findByCreatorId(id);
 	}
 
 }

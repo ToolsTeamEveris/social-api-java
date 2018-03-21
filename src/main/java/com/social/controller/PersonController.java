@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +31,10 @@ public class PersonController  {
 	
 	@GetMapping(value="/person")
 	@ResponseBody
-	public Iterable<Person> getAll() {
-		return this.manager.findAll();
+	public List<Person> getAll() {
+		List<Person> persons = new ArrayList<>();
+		this.manager.findAll().forEach( p -> persons.add(p));
+		return persons;
 	}
 	
 	@GetMapping(value="/person/{id}")
@@ -52,17 +56,17 @@ public class PersonController  {
 		return person.getFriends();
 	}
 	
+	@PutMapping(value="/person/{id}/update")
+	@ResponseBody
+	public void UpdatePerson(@RequestBody Person person) {
+		manager.update(person);
+	}
+	
 	// TODO relate  -> coger id del token cuando este
 	@PostMapping(value="/person/{id}/relate")
 	@ResponseBody
-	public void relate(@RequestBody Person person) {
-		Long l = (long) 1000;
-		List<Person> list = new ArrayList<Person>();
-		Person user = this.manager.findById(l);
-		list = user.getFriends();
-		list.add(person);
-		user.setFriends(list);
-		this.manager.save(user);
+	public void relate(@PathVariable Long id) {		
+		manager.relatePerson(id);
 	}
 	
 	// TODO ruta que te devuelva todos los amigos de una persona -> por comprobar
