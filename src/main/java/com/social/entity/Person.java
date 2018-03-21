@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import lombok.Data;
 
@@ -18,6 +21,10 @@ public class Person {
 	private Long id;
 	private String name;
 	private String surname;
+	 @ManyToMany
+	  @JoinTable(
+	      name="friends",
+	      joinColumns=@JoinColumn(name="Person", referencedColumnName="id"))
 	private List<Person> friends;
 	
 }

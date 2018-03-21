@@ -29,8 +29,10 @@ public class PersonController  {
 	
 	@GetMapping(value="/person")
 	@ResponseBody
-	public Iterable<Person> getAll() {
-		return this.manager.findAll();
+	public List<Person> getAll() {
+		List<Person> persons = new ArrayList<>();
+		this.manager.findAll().forEach( p -> persons.add(p));
+		return persons;
 	}
 	
 	@GetMapping(value="/person/{id}")
@@ -46,7 +48,7 @@ public class PersonController  {
 	}
 	
 	// TODO getFriends
-	@GetMapping(value="/person/{id}/friends")
+	/*@GetMapping(value="/person/{id}/friends")
 	@ResponseBody
 	public List<Person> GetFriends(@RequestBody Person person) {
 		return person.getFriends();
@@ -71,7 +73,7 @@ public class PersonController  {
 	public Iterable<Person> getAllFriends(Long id) {
 		Person user = this.manager.findById(id);
 		return user.getFriends();
-	}
+	}*/
 	
 	@DeleteMapping(value="/person/{id}")
 	@ResponseBody
