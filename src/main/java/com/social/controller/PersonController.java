@@ -56,12 +56,13 @@ public class PersonController  {
 	@PostMapping(value="/person/{id}/relate")
 	@ResponseBody
 	public void relate(@RequestBody Person person) {
-		Long l = (long) 1;
+		Long l = (long) 1000;
 		List<Person> list = new ArrayList<Person>();
 		Person user = this.manager.findById(l);
 		list = user.getFriends();
 		list.add(person);
 		user.setFriends(list);
+		this.manager.save(user);
 	}
 	
 	// TODO ruta que te devuelva todos los amigos de una persona -> por comprobar
