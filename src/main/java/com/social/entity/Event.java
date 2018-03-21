@@ -1,6 +1,7 @@
 package com.social.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,10 +20,13 @@ public class Event {
 	@ManyToOne
 	@JoinColumn(name="creator")
 	private Person creator;
+	@ManyToOne
+	@JoinColumn(name="assistants")
+	private List<Person> assistants;
 	private String name;
 	private Date startingDate;
 	private Date endingDate;
-//	private EventType type;
+	private EventType type;
 //	private byte[] picture;
 	
 	
@@ -52,5 +56,14 @@ public class Event {
 	}
 	public void setEndingDate(Date endingDate) {
 		this.endingDate = endingDate;
+	}
+
+
+	public EventType getType() {
+		return type;
+	}
+
+	public void setType(EventType type) {
+		this.type = type;
 	}
 }
