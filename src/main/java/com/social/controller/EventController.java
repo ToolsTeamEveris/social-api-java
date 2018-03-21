@@ -1,6 +1,5 @@
 package com.social.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,8 @@ public class EventController {
 	public EventController(final EventManager eventManager, final PersonManager personManager) {
 		this.eventManager = eventManager;
 		this.personManager = personManager;
-		
 	}
-	
+		
 	@GetMapping(value="/event")
 	@ResponseBody
 	public Iterable<Event> getAll() {
@@ -56,9 +54,7 @@ public class EventController {
 	@GetMapping(value="/event/person/{personId}")
 	@ResponseBody
 	public List<Event> getByPersonId(@PathVariable Long personId) {
-		final Person creator = personManager.findById(personId);
-		// Consulta SQL que saque eventos creados por el usuario
-		return new ArrayList<Event>();
+		return this.eventManager.getByCreatorId(personId);
 	}
 	
 	@PostMapping(value="/event")
