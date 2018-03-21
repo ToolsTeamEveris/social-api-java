@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.social.entity.Event;
+import com.social.entity.Person;
 import com.social.repository.EventRepository;
 
 
@@ -36,6 +37,7 @@ public class EventManagerImpl implements EventManager {
 		
 	}
 
+
 	@Override
 	public void save(Iterable<Event> e) {
 		// TODO Auto-generated method stub
@@ -58,6 +60,12 @@ public class EventManagerImpl implements EventManager {
 	public void remove(Event e) {
 		eventRepository.delete(e);
 		
+	}
+
+	@Override
+	public void addPerson(Event event, Person person) {
+		event.addAssistant(person);
+		eventRepository.save(event);
 	}
 
 }

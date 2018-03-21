@@ -9,10 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import lombok.Data;
 
 
 @Entity
-
+@Data
 public class Event {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -20,8 +23,7 @@ public class Event {
 	@ManyToOne
 	@JoinColumn(name="creator")
 	private Person creator;
-	@ManyToOne
-	@JoinColumn(name="assistants")
+	@OneToMany(mappedBy="id")
 	private List<Person> assistants;
 	private String name;
 	private Date startingDate;
@@ -29,41 +31,17 @@ public class Event {
 	private EventType type;
 //	private byte[] picture;
 	
-	
-	public Long getId() {
-		return id;
+	public void addAssistant(Person assitant) {
+		this.assistants.add(assitant);
 	}
 	
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public void deleteAssistant(Person assistant) {
+		if (this.assistants.contains(assistant)) {
+			this.assistants.remove(assistant);
+		}
 	}
 	
-	
-	public Date getStartingDate() {
-		return startingDate;
-	}
-	public void setStartingDate(Date startingDate) {
-		this.startingDate = startingDate;
-	}
-	
-	
-	public Date getEndingDate() {
-		return endingDate;
-	}
-	public void setEndingDate(Date endingDate) {
-		this.endingDate = endingDate;
-	}
-
-
-	public EventType getType() {
-		return type;
-	}
-
-	public void setType(EventType type) {
-		this.type = type;
+	public void deleteAllAssistants() {
+		this.assistants.removeAll(assistants);
 	}
 }
