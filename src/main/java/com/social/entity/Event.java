@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 
 import lombok.Data;
 
-
 @Entity
 @Data
 public class Event {
@@ -44,4 +43,5 @@ public class Event {
 	public void deleteAllAssistants() {
 		this.assistants.removeAll(assistants);
 	}
+	
 }
