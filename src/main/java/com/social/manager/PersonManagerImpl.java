@@ -3,7 +3,6 @@ package com.social.manager;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,6 +74,7 @@ public final class PersonManagerImpl implements PersonManager {
 			list.add(person);
 			user.setFriends(list);
 			update(user);
+			user.setFriends(null);
 			return user;
 		}
 		else {
