@@ -3,7 +3,6 @@ package com.social.manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.social.entity.Event;
 import com.social.entity.Person;
 import com.social.repository.PersonRepository;
 
@@ -23,7 +22,15 @@ public final class PersonManagerImpl implements PersonManager {
 	public Iterable<Person> findAll() {
 		return personRepository.findAll();
 	}
-
+	
+	@Override
+	public Person findById(Long id) {
+		if (personRepository.findById(id).isPresent())
+			return personRepository.findById(id).get();
+		else
+			return null;
+	}
+	
 	@Override
 	public void save(final Person nPerson) {
 		this.personRepository.save(nPerson);
@@ -59,9 +66,4 @@ public final class PersonManagerImpl implements PersonManager {
 		return null;
 	}
 
-	@Override
-	public Person findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
