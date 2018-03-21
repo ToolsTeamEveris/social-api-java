@@ -22,4 +22,7 @@ public class Group {
 	private String name;
 	private byte[] picture;
 	
+        public void addPerson(Person person) {
+            this.friends.add(person);
+        }
 }

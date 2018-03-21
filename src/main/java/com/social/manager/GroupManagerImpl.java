@@ -7,7 +7,7 @@ import com.social.entity.Group;
 import com.social.entity.Person;
 
 @Service
-public class GroupManagerImpl implements GroupManager<Group> {
+public class GroupManagerImpl implements GroupManager {
 
 	@Override
 	public Iterable<Group> findAll() {
