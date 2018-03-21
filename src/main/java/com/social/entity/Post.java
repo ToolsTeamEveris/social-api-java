@@ -22,4 +22,5 @@ public class Post {
 	private Date creationDate;
 	private PostType type;
 	private byte[] picture;
+	
 }
