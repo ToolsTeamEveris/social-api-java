@@ -11,22 +11,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.social.entity.Group;
 import com.social.entity.Person;
+import com.social.helper.AuthService;
 import com.social.manager.GroupManager;
 import com.social.manager.PersonManager;
 
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
 public class GroupController {
 
 	private final GroupManager manager;
         private final PersonManager personManager;
+        private final AuthService authService;
 	
 	@Autowired
-	public GroupController(final GroupManager groupManager, final PersonManager personManager) {
+	public GroupController(final GroupManager groupManager, 
+                                final PersonManager personManager, 
+                                final AuthService authService) {
             this.manager = groupManager;
             this.personManager = personManager;
+            this.authService = authService;
 	}
 	
 	@RequestMapping(value = "/group", method = RequestMethod.GET)
@@ -43,12 +49,9 @@ public class GroupController {
 	
 	@RequestMapping(value = "/group", method = RequestMethod.POST)
 	@ResponseBody
-	public Group create(@RequestBody Group group) {
+	public Group create(@RequestBody Group group, @RequestHeader String Authorization) {
             
-            //TODO get id from token
-            Person user = this.personManager.findById(1000l);
-            
-            group.setCreator(user);
+            group.setCreator(this.authService.verifyToken(Authorization));
             group.setMembers(new ArrayList<Person>());
             
             this.manager.save(group);
@@ -71,16 +74,11 @@ public class GroupController {
 	public void getAll(@PathVariable Long id , @RequestBody ArrayList<Long> list){
             Group group = this.manager.findById(id);
             List<Person> persons = new ArrayList<>();
-            
-            System.out.println(list);
 
             list.stream()
                     .forEach(userId -> persons.add(this.personManager.findById(userId)));
             
             group.addPerson(persons);
-            
-            System.out.println(persons);
-            System.out.println(group);
             
             this.manager.save(group);
 	}
