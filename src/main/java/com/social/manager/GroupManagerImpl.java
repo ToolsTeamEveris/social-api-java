@@ -2,7 +2,6 @@ package com.social.manager;
 
 import org.springframework.stereotype.Service;
 
-import com.social.entity.Event;
 import com.social.entity.Group;
 import com.social.entity.Person;
 
