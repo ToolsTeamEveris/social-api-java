@@ -44,11 +44,21 @@ public final class PersonManagerImpl implements PersonManager {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void updatePerson(Long id, Person person) {
+		Person person2 = findById(id);
+		person2.setName(person.getName());
+		person2.setSurname(person.getSurname());
+		this.personRepository.save(person2);	
+	}
 
 	@Override
 	public void update(Person e) {
 		this.personRepository.save(e);	
 	}
+	
+	
 
 	@Override
 	public void update(Iterable<Person> e) {
