@@ -2,29 +2,35 @@ package com.social.manager;
 
 import org.springframework.stereotype.Service;
 
-import com.social.entity.Event;
 import com.social.entity.Group;
 import com.social.entity.Person;
+import com.social.repository.GroupRepository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class GroupManagerImpl implements GroupManager {
+    
+    private final GroupRepository groupRepository;
 
+    @Autowired
+	public GroupManagerImpl(final GroupRepository groupRepository) {
+            this.groupRepository = groupRepository;
+	}
+            
 	@Override
 	public Iterable<Group> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+            return this.groupRepository.findAll();
 	}
 
 	@Override
 	public void save(Group e) {
-		// TODO Auto-generated method stub
-		
+            this.groupRepository.save(e);
 	}
 
 	@Override
 	public void save(Iterable<Group> e) {
-		// TODO Auto-generated method stub
-		
+            e.forEach( i -> this.groupRepository.save(i));
 	}
 
 	@Override
@@ -41,8 +47,7 @@ public class GroupManagerImpl implements GroupManager {
 
 	@Override
 	public void remove(Group e) {
-		// TODO Auto-generated method stub
-		
+            this.groupRepository.delete(e);
 	}
 
 	@Override
@@ -53,8 +58,9 @@ public class GroupManagerImpl implements GroupManager {
 
 	@Override
 	public Group findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+            Group group = this.groupRepository.findById(id).isPresent() ? 
+                                this.groupRepository.findById(id).get() : null;
+            return group;            
 	}
 
 
