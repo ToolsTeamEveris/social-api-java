@@ -94,4 +94,9 @@ public final class PersonManagerImpl implements PersonManager {
 		
 	}
 
+    @Override
+    public Person findByUsername(String username) {
+        return personRepository.findByUsername(username);
+    }
+
 }
