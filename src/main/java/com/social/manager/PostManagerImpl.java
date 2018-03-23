@@ -1,6 +1,5 @@
 package com.social.manager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.social.entity.Like;
 import com.social.entity.Post;
-import com.social.repository.EventRepository;
 import com.social.repository.PostRepository;
 
 @Service

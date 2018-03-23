@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,14 +44,13 @@ public class EventController {
 	@PostMapping(value="/event/{eventId}/person/{personId}/add")
 	@ResponseBody
 	public Event addPerson(@PathVariable Long eventId, @PathVariable Long personId) {
-		final Event event = eventManager.findById(eventId);
-		final Person person = personManager.findById(personId);
+		Event event = eventManager.findById(eventId);
+		Person person = personManager.findById(personId);
 		
 		this.eventManager.addPerson(event, person);
 		return event;
 	}
 	
-	// TODO
 	@GetMapping(value="/event/person/{personId}")
 	@ResponseBody
 	public List<Event> getByPersonId(@PathVariable Long personId) {
@@ -63,10 +63,16 @@ public class EventController {
 		this.eventManager.save(event);
 	}
 	
+	@PutMapping(value="/event/{id}")
+	@ResponseBody
+	public Event update(@RequestBody Event newEvent, @PathVariable("id") Long oldEventId) {
+		return eventManager.updateEvent(oldEventId, newEvent);
+	}
+	
 	@DeleteMapping(value="/event/{id}")
 	@ResponseBody
 	public void remove(@PathVariable Long id) {
-		final Event event = eventManager.findById(id);
+		Event event = eventManager.findById(id);
 		this.eventManager.remove(event);
 	}
 	
