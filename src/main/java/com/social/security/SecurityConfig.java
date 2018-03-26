@@ -16,7 +16,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  *
@@ -25,6 +32,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  @Configuration
  @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+     
+    @Autowired
+    private SimpleCORSFilter myCorsFilter;
      
     @Autowired
     private MyUserDetailsService userDetailsService;
@@ -37,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
+        http
+                .csrf().disable().authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
 //                .antMatchers("/auth/register").permitAll()
                 .anyRequest().authenticated() // cualquier otra peticion requiere autenticacion
@@ -45,6 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Las peticiones /login pasaran previamente por este filtro
                 .addFilterBefore(new LoginFilter("/auth/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
+                //CORS
+                .addFilterBefore(myCorsFilter, ChannelProcessingFilter.class)
                 
                 // Las demás peticiones pasarán por este filtro para validar el token
                 .addFilterBefore(new JwtFilter(),
@@ -68,4 +81,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
+    
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer()
+//    {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**");
+//            }
+//        };
+//    }
 }

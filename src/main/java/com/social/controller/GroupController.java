@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.social.entity.Group;
 import com.social.entity.Person;
-import com.social.helper.AuthService;
 import com.social.manager.GroupManager;
 import com.social.manager.PersonManager;
 
@@ -23,16 +22,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public class GroupController {
 
 	private final GroupManager manager;
-        private final PersonManager personManager;
-        private final AuthService authService;
-	
+        private final PersonManager personManager;	
+        
 	@Autowired
 	public GroupController(final GroupManager groupManager, 
-                                final PersonManager personManager, 
-                                final AuthService authService) {
+                                final PersonManager personManager) {
             this.manager = groupManager;
             this.personManager = personManager;
-            this.authService = authService;
 	}
 	
 	@RequestMapping(value = "/group", method = RequestMethod.GET)
@@ -47,17 +43,17 @@ public class GroupController {
             return this.manager.findById(id);
 	}
 	
-	@RequestMapping(value = "/group", method = RequestMethod.POST)
-	@ResponseBody
-	public Group create(@RequestBody Group group, @RequestHeader String Authorization) {
-            
-            group.setCreator(this.authService.verifyToken(Authorization));
-            group.setMembers(new ArrayList<Person>());
-            
-            this.manager.save(group);
-            
-            return group;
-        }
+//	@RequestMapping(value = "/group", method = RequestMethod.POST)
+//	@ResponseBody
+//	public Group create(@RequestBody Group group, @RequestHeader String Authorization) {
+//            
+//            group.setCreator(this.authService.verifyToken(Authorization));
+//            group.setMembers(new ArrayList<Person>());
+//            
+//            this.manager.save(group);
+//            
+//            return group;
+//        }
 	
 	@RequestMapping(value = "/group/person/{personId}", method = RequestMethod.GET)
 	@ResponseBody
