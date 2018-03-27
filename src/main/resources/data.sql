@@ -13,3 +13,5 @@ insert into grupo (id, creator, name) values (1000, 1000, 'Group1');
 insert into grupo (id, creator, name) values (1001, 1003, 'Group2');
 insert into grupo (id, creator, name) values (1002, 1000, 'Group3');
 insert into grupo (id, creator, name) values (1003, 1002, 'Group4');
+
+

@@ -71,7 +71,7 @@ public final class PersonManagerImpl implements PersonManager {
 		personRepository.delete(e);
 		
 	}
-
+	/*
 	@Override
 	public Person relatePerson(Long id) {
 		Long l = (long) 1000;
@@ -93,7 +93,7 @@ public final class PersonManagerImpl implements PersonManager {
 		
 		
 	}
-
+	*/
     @Override
     public Person findByUsername(String username) {
         return personRepository.findByUsername(username);
