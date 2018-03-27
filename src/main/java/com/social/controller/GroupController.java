@@ -22,13 +22,15 @@ import org.springframework.web.bind.annotation.RequestHeader;
 public class GroupController {
 
 	private final GroupManager manager;
-        private final PersonManager personManager;	
+
+    private final PersonManager personManager;	
         
 	@Autowired
 	public GroupController(final GroupManager groupManager, 
                                 final PersonManager personManager) {
             this.manager = groupManager;
             this.personManager = personManager;
+
 	}
 	
 	@RequestMapping(value = "/group", method = RequestMethod.GET)
@@ -42,6 +44,7 @@ public class GroupController {
 	public Group getById(@PathVariable long id) {
             return this.manager.findById(id);
 	}
+
 	
 //	@RequestMapping(value = "/group", method = RequestMethod.POST)
 //	@ResponseBody
@@ -55,6 +58,19 @@ public class GroupController {
 //            return group;
 //        }
 	
+	/*
+	@RequestMapping(value = "/group", method = RequestMethod.POST)
+	@ResponseBody
+	public Group create(@RequestBody Group group, @RequestHeader String Authorization) {
+            
+            group.setCreator(this.authService.verifyToken(Authorization));
+            group.setMembers(new ArrayList<Person>());
+            
+            this.manager.save(group);
+            
+            return group;
+        }
+	*/
 	@RequestMapping(value = "/group/person/{personId}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Group> getByPersonId(@PathVariable Long personId) {
