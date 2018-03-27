@@ -68,7 +68,7 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-security</artifactId>
                 </dependency>
-<<<<<<< HEAD
+
                 <!-- https://mvnrepository.com/artifact/org.json/org.json -->
 		<dependency>
 		    <groupId>org.json</groupId>
@@ -76,13 +76,13 @@
 		    <version>chargebee-1.0</version>
 		</dependency>
                 
-=======
+
                 <dependency>
                 	<groupId>com.thetransactioncompany</groupId>
                 	<artifactId>cors-filter</artifactId>
                 	<version>2.6</version>
                 </dependency>
->>>>>>> 9696613e38d451a2d9a0ae16faeb6344e3b7439a
+
 	</dependencies>
 
 	<build>
