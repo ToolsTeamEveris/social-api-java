@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,18 +29,18 @@ public class Person implements UserDetails {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-        @Column(unique=true)
-        private String username;
-        @JsonProperty(access = Access.WRITE_ONLY) // no lo devuelve en el body de la respuesta
-        private String password;
+    @Column(unique=true)
+    private String username;
+    @JsonProperty(access = Access.WRITE_ONLY) // no lo devuelve en el body de la respuesta
+    private String password;
 	private String name;
 	private String surname;
-	 @ManyToMany
-	  @JoinTable(
-	      name="friends",
-	      joinColumns=@JoinColumn(name="Person", referencedColumnName="id"))
+	/*
+	@JsonProperty(access= Access.WRITE_ONLY)
+	
+	@OneToMany(mappedBy = "sourceUser")
 	private List<Person> friends;
-
+	*/
     @JsonProperty(access = Access.WRITE_ONLY)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
