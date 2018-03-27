@@ -23,6 +23,8 @@ public class Post {
 	private Person creator;
 	private String text;
 	private Date creationDate;
+	private Float lat;
+	private Float lng;
 	private PostType type;
 	private byte[] picture;
 	
