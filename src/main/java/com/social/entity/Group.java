@@ -2,6 +2,7 @@ package com.social.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +31,8 @@ public class Group {
             joinColumns=@JoinColumn(name="Person", referencedColumnName="id"))
 	private List<Person> members;
 	private String name;
-	//private byte[] picture;
+	@Column(columnDefinition="TEXT")
+	private String picture;
 	
         public void addPerson(Person person) {
             this.members.add(person);

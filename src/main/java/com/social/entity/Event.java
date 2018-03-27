@@ -3,6 +3,7 @@ package com.social.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,8 @@ public class Event {
 	private Date startingDate;
 	private Date endingDate;
 	private EventType type;
-//	private byte[] picture;
+	@Column(columnDefinition="TEXT")
+	private String picture;
 	
 	public void addAssistant(Person assitant) {
 		this.assistants.add(assitant);

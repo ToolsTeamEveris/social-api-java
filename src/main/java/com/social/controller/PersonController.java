@@ -1,5 +1,7 @@
 package com.social.controller;
+import org.json.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +12,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.social.entity.Person;
 import com.social.manager.PersonManager;
 
+import helper.AuthToken;
+
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.security.spec.RSAPublicKeySpec;
+import org.apache.commons.codec.binary.Base64;
 
 
 @RestController
@@ -56,9 +70,19 @@ public class PersonController  {
 		return person.getFriends();
 	}
 	
-	@PutMapping(value="/person/{id}/update")
+	@PutMapping(value="/person")
 	@ResponseBody
-	public void UpdatePerson(@RequestBody Person person) {
+	public void UpdatePerson(@RequestHeader("Authorization") String authHeader, @RequestBody Person person) {
+		
+		String username = AuthToken.getAuthenticatedUser(authHeader);
+		
+		Person p = manager.findByUsername(username);
+
+		if (person.getName() != null) p.setName(person.getName());
+		if (person.getSurname() != null) p.setSurname(person.getSurname());
+		if (person.getPicture() != null) p.setPicture(person.getPicture());
+		
+		// Updateamos		
 		manager.update(person);
 	}
 	

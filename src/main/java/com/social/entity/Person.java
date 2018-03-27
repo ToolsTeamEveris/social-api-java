@@ -39,6 +39,8 @@ public class Person implements UserDetails {
 	      name="friends",
 	      joinColumns=@JoinColumn(name="Person", referencedColumnName="id"))
 	private List<Person> friends;
+	@Column(columnDefinition="TEXT")
+	private String picture;
 
     @JsonProperty(access = Access.WRITE_ONLY)
     @Override

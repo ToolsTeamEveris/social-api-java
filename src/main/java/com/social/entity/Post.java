@@ -2,6 +2,7 @@ package com.social.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Post {
 	private Float lat;
 	private Float lng;
 	private PostType type;
-	private byte[] picture;
+	@Column(columnDefinition="TEXT")
+	private String picture;
 	
 }
