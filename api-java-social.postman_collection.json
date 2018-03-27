@@ -1,0 +1,615 @@
+{
+	"info": {
+		"_postman_id": "c8cda316-0f33-4ee1-8588-834ac283f97b",
+		"name": "api-java-social",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Persons",
+			"description": "",
+			"item": [
+				{
+					"name": "Obtener todos los usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/person",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener usuario concreto",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dioni\",\n    \"surname\": \"Giménez\",\n    \"friends\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/person/1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"person",
+								"1000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Guardar un usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dani\",\n    \"surname\": \"Lopez\",\n    \"friends\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/person",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añadir usuario a favoritos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/person/1002/relate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"person",
+								"1002",
+								"relate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/person/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"person",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"description": "",
+			"item": [
+				{
+					"name": "Obtener todos los grupos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener grupo concreto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/group/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"group",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añadir grupo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añadir grupo a favoritos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/group/1/relate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"group",
+								"1",
+								"relate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un grupo concreto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/group/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"group",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"description": "",
+			"item": [
+				{
+					"name": "Obtener todos los eventos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener evento concreto",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dioni\",\n    \"surname\": \"Giménez\",\n    \"friends\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/event/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos los evento de una persona concreta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/event/person/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event",
+								"person",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Guardar un evento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dani\",\n    \"surname\": \"Lopez\",\n    \"friends\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añade una persona a un evento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/event/1/person/1/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event",
+								"1",
+								"person",
+								"1",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borra un evento concreto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/event/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"description": "",
+			"item": [
+				{
+					"name": "Obtener todos los post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un post concreto",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dioni\",\n    \"surname\": \"Giménez\",\n    \"friends\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/post/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener los post de una persona concreta",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dioni\",\n    \"surname\": \"Giménez\",\n    \"friends\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/post/person/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"person",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añadir un post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \n        \"id\": 1007,\n        \"creator\": 1002,\n        \"text\": \"aaaa\",\n        \"creation_date\": \"2018-03-20T23:00:00.000+0000\"\n    \n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un post concreto",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dioni\",\n    \"surname\": \"Giménez\",\n    \"friends\": []\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/post/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"description": "",
+			"item": [
+				{
+					"name": "Registrar usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"pepe\",\n\t\"password\":\"pepe\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"pepe\",\n\t\"password\":\"pepe\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

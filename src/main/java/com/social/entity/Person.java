@@ -34,6 +34,8 @@ public class Person implements UserDetails {
         private String password;
 	private String name;
 	private String surname;
+	private Float lat;
+	private Float lng;
 	 @ManyToMany
 	  @JoinTable(
 	      name="friends",

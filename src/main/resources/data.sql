@@ -1,6 +1,6 @@
-insert into Person (id, name, surname, username, password) values (1000, 'Ivan', 'Galan', 'ivan', 'ivan');
-insert into Person (id, name, surname, username, password) values (1002, 'Irene', 'Guijarro', 'irene', 'irene');
-insert into Person (id, name, surname, username, password) values (1003, 'Jose', 'Amores', 'jose', 'jose');
+insert into Person (id, name, surname, username, password, lat, lng) values (1000, 'Ivan', 'Galan', 'ivan', 'ivan', 38.4, -0.5);
+insert into Person (id, name, surname, username, password, lat, lng) values (1002, 'Irene', 'Guijarro', 'irene', 'irene', 38.4, -0.5);
+insert into Person (id, name, surname, username, password, lat, lng) values (1003, 'Jose', 'Amores', 'jose', 'jose', 38.4, -0.5);
 
 insert into Event (id, ending_date, name, starting_date, type, creator) values (1000, '2018-03-21', 'Beber agua','2018-03-22', 0, 1002);
 
