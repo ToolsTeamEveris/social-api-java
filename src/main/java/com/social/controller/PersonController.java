@@ -43,6 +43,12 @@ public class PersonController  {
 		return this.manager.findById(id);
 	}
 	
+	@GetMapping(value="/person/search/{text}")
+	@ResponseBody
+	public List<Person> searchPerson(@PathVariable String text) {
+		return this.manager.findByCustomText(text);
+	}
+	
 	@PostMapping(value="/person")
 	@ResponseBody
 	public void create(@RequestBody Person person) {

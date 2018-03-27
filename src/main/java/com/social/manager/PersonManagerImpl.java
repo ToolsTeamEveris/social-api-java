@@ -3,9 +3,20 @@ package com.social.manager;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.social.entity.Friend;
+import com.social.entity.FriendPK;
 import com.social.entity.Person;
 import com.social.repository.PersonRepository;
 
@@ -14,6 +25,12 @@ public final class PersonManagerImpl implements PersonManager {
 	
 	
 	private final PersonRepository personRepository;
+	@PersistenceContext
+    private EntityManager em;
+	
+	CriteriaBuilder cb;
+	CriteriaQuery<Person> criteriaQuery;
+	Root<Person> root;
 	
 	@Autowired
 	public PersonManagerImpl(final PersonRepository personRepository) {
@@ -71,32 +88,34 @@ public final class PersonManagerImpl implements PersonManager {
 		personRepository.delete(e);
 		
 	}
-	/*
-	@Override
-	public Person relatePerson(Long id) {
-		Long l = (long) 1000;
-		List<Person> list = new ArrayList<Person>();
-		Person user = findById(l);
-		Person person = findById(id);
-		
-		if(user.getId() != person.getId()) {
-			list = user.getFriends();
-			list.add(person);
-			user.setFriends(list);
-			update(user);
-			user.setFriends(null);
-			return user;
-		}
-		else {
-			return null;
-		}
-		
-		
-	}
-	*/
+	
     @Override
     public Person findByUsername(String username) {
         return personRepository.findByUsername(username);
     }
+
+	@Override
+	public List<Person> findByCustomText(String text) {
+		
+		cb = em.getCriteriaBuilder();
+		criteriaQuery = cb.createQuery(Person.class);
+		root = criteriaQuery.from(Person.class);
+		
+		Expression<String> path = root.get("username");
+		path = cb.upper(path);
+		Expression<String> pathName = root.get("name");
+		pathName = cb.upper(pathName);
+		Expression<String> pathSurname = root.get("surname");
+		pathSurname = cb.upper(pathSurname);
+		Predicate predicate = cb.or(
+				cb.like(path, "%"+text.toUpperCase()+"%"), 
+				cb.like(pathName, "%"+text.toUpperCase()+"%"),
+				cb.like(pathSurname, "%"+text.toUpperCase()+"%")
+				);
+		criteriaQuery.select(root).where(predicate);
+		Query<Person> query = (Query<Person>) em.createQuery(criteriaQuery);
+		
+		return query.getResultList();
+	}
 
 }
