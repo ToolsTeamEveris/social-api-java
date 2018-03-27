@@ -48,27 +48,27 @@ public class PersonController  {
 	public void create(@RequestBody Person person) {
 		this.manager.save(person);
 	}
-	
+	/*
 	// TODO getFriends
 	@GetMapping(value="/person/{id}/friends")
 	@ResponseBody
 	public List<Person> GetFriends(@RequestBody Person person) {
 		return person.getFriends();
 	}
-	
+	*/
 	@PutMapping(value="/person/{id}/update")
 	@ResponseBody
 	public void UpdatePerson(@RequestBody Person person) {
 		manager.update(person);
 	}
-	
+	/*
 	// TODO relate  -> coger id del token cuando este
 	@PostMapping(value="/person/{id}/relate")
 	@ResponseBody
 	public void relate(@PathVariable Long id) {		
 		manager.relatePerson(id);
 	}
-	
+	/*
 	// TODO ruta que te devuelva todos los amigos de una persona -> por comprobar
 	@GetMapping(value="/person/friends")
 	@ResponseBody
@@ -76,7 +76,7 @@ public class PersonController  {
 		Person user = this.manager.findById(id);
 		return user.getFriends();
 	}
-	
+	*/
 	@DeleteMapping(value="/person/{id}")
 	@ResponseBody
 	public void remove(@PathVariable Long id) {
