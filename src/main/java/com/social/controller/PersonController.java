@@ -82,7 +82,7 @@ public class PersonController  {
 		if (person.getPicture() != null) p.setPicture(person.getPicture());
 		
 		// Updateamos		
-		manager.update(person);
+		manager.update(p);
 	}
 	/*
 	// TODO relate  -> coger id del token cuando este
