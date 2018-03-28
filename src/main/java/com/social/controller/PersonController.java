@@ -74,14 +74,14 @@ public class PersonController  {
 	public void UpdatePerson(@RequestHeader("Authorization") String authHeader, @RequestBody Person person) {
 		
 		String username = AuthToken.getAuthenticatedUser(authHeader);
-		
 		Person p = manager.findByUsername(username);
 
 		if (person.getName() != null) p.setName(person.getName());
 		if (person.getSurname() != null) p.setSurname(person.getSurname());
-		if (person.getPicture() != null) p.setPicture(person.getPicture());
+		//if (person.getPicture() != null) p.setPicture(person.getPicture());
 		
-		// Updateamos		
+		// Updateamos	
+		//Hay que hacer update de p no de person, no?
 		manager.update(person);
 	}
 	/*
