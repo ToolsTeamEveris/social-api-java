@@ -1,5 +1,7 @@
 package com.social.manager;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,7 +71,12 @@ public class PostManagerImpl implements PostManager<Post> {
 		//Guardar el like antes de asociarlo al post en la BD
 		if(postRepository.findById(id).isPresent()) {
 			Post post = postRepository.findById(id).get();
+			
+			like.setCreator();
+			like.setCreation_date(new Date());
+			
 			post.getLikes().add(like);
+			
 			return postRepository.save(post);
 		} else {
 			return null;

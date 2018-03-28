@@ -23,7 +23,7 @@ public class Like {
 	
 	@OneToOne
 	@JoinColumn(name="creator")
-	private Person person;
+	private Person creator;
 	private Date creation_date;
 	private LikeType type;
 }
