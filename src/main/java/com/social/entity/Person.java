@@ -35,12 +35,9 @@ public class Person implements UserDetails {
     private String password;
 	private String name;
 	private String surname;
-	/*
-	@JsonProperty(access= Access.WRITE_ONLY)
-	
-	@OneToMany(mappedBy = "sourceUser")
-	private List<Person> friends;
-	*/
+
+
+
 	@Column(columnDefinition="TEXT")
 	private String picture;
 	
