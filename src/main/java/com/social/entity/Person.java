@@ -36,10 +36,10 @@ public class Person implements UserDetails {
 	private String name;
 	private String surname;
 	
-	@JsonProperty(access= Access.WRITE_ONLY)
+	/*@JsonProperty(access= Access.WRITE_ONLY)
 	
 	@OneToMany(mappedBy = "sourceUser")
-	private List<Person> friends;
+	private List<Person> friends;*/
 
 	@Column(columnDefinition="TEXT")
 	private String picture;
