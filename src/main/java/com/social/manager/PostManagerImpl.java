@@ -72,7 +72,7 @@ public class PostManagerImpl implements PostManager<Post> {
 		if(postRepository.findById(id).isPresent()) {
 			Post post = postRepository.findById(id).get();
 			
-			like.setCreator();
+			//like.setCreator();
 			like.setCreation_date(new Date());
 			
 			post.getLikes().add(like);

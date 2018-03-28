@@ -1,6 +1,8 @@
 package com.social.entity;
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.Data;
@@ -9,13 +11,15 @@ import lombok.Data;
 @Embeddable
 public class FriendPK implements Serializable{
 
-	public Person user;
-	public Person friend;
+	@Column(length=100000)
+	public Person sender_user;
+	@Column(length=100000)
+	public Person receiver_user;
 	
 	public FriendPK(Person user, Person friend) {
 		super();
-		this.user = user;
-		this.friend = friend;
+		this.sender_user = user;
+		this.receiver_user = friend;
 	}
 
 	public FriendPK() {

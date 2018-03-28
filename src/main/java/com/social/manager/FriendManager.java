@@ -6,8 +6,9 @@ import com.social.entity.Friend;
 
 
 public interface FriendManager<E> extends Manager<E> {
-	Friend saveFriendshipRequest(Long id);
-	Friend confirmFriendShip(Long id);
-	Friend deleteFriendship(Long id);
-	
+	Friend saveFriendshipRequest(String username,Long id);
+	Friend confirmFriendShip(String username,Long id);
+	Friend deleteFriendship(String username,Long id);
+	List<Friend> getRelatedPersons(String username);
+	Friend getFriend(String username,Long id);
 }

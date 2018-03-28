@@ -35,12 +35,12 @@ public class Person implements UserDetails {
     private String password;
 	private String name;
 	private String surname;
-	/*
-	@JsonProperty(access= Access.WRITE_ONLY)
+
+
+
+	@Column(columnDefinition="TEXT")
+	private String picture;
 	
-	@OneToMany(mappedBy = "sourceUser")
-	private List<Person> friends;
-	*/
     @JsonProperty(access = Access.WRITE_ONLY)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

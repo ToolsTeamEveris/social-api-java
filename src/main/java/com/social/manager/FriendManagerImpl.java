@@ -24,13 +24,14 @@ import com.social.entity.Person;
 import com.social.repository.FriendRepository;
 import com.social.repository.PersonRepository;
 
+import helper.AuthToken;
+
 @Service
 public class FriendManagerImpl implements FriendManager<Friend>{
 
 	private final FriendRepository friendRepository;
 	private final PersonManagerImpl personManager;
 	private Person user_logged;
-	Session session;
 	
 	@PersistenceContext
     private EntityManager em;
@@ -44,58 +45,77 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 								final PersonManagerImpl personManager) {
 		this.friendRepository = friendRepository;
 		this.personManager = personManager;
-		user_logged  = personManager.findById(1000L);
-		
 	}
 
 	@Override
-	public Iterable<Friend> findAll() {
+	public List<Friend> getRelatedPersons(String username) {
+		//Get the logged user
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+		//Create the Query
 		cb = em.getCriteriaBuilder();
 		criteriaQuery = cb.createQuery(Friend.class);
 		root = criteriaQuery.from(Friend.class);
-		Friend friend = new Friend();
-		friend.setFriendPK(new FriendPK(user_logged,user_logged));
-		friend.setAccepted(false);
-		Predicate predicate = cb.or(cb.equal(root.get("friendPK").get("user"), user_logged),cb.equal(root.get("friendPK").get("friend"), user_logged));
+		Predicate predicate = cb.or(cb.equal(root.get("friendPK").get("sender_user"), user_logged),cb.equal(root.get("friendPK").get("receiver_user"), user_logged));
 		criteriaQuery.select(root).where(predicate);
+		//Make the Query
 		Query<Friend> query = (Query<Friend>) em.createQuery(criteriaQuery);
 		
 		return query.getResultList();
-		
 	}
 	
 	@Override
-	public Friend findById(Long id) {
+	public Friend getFriend(String username,Long id) {
+		//Get the user logged
 		Person friend = personManager.findById(id);
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+		//Find the user
 		if (friendRepository.findById(new FriendPK(user_logged, friend)).isPresent())
 			return friendRepository.findById(new FriendPK(user_logged, friend)).get();
 		else
 			return null;
 	}
 	
+	
 	@Override
-	public Friend confirmFriendShip(Long id) {
-		Friend friend = findById(id);
+	public Friend confirmFriendShip(String username,Long id) {
+		Friend friend = getFriend(username, id);
 		friend.setAccepted(true);
 		save(friend);
 		return friend;
 	}
 	
 	@Override
-	public Friend saveFriendshipRequest(Long id) {
+	public Friend saveFriendshipRequest(String username,Long id) {
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+		
+		
+		System.out.println(user_logged.toString());
+		
 		Person userFriend = personManager.findById(id);
+		System.out.println(userFriend.toString());
 		Friend friend = new Friend();
 		friend.setFriendPK(new FriendPK(user_logged,userFriend));
 		friend.setAccepted(false);
-		save(friend);;
+		save(friend);
+		
 		return friend;
 	}
 	
 	@Override
-	public Friend deleteFriendship(Long id) {
-		Friend friend = findById(id);
+	public Friend deleteFriendship(String username,Long id) {
+		Friend friend = getFriend(username, id);
 		remove(friend);
 		return friend;
+	}
+	
+	
+	
+	@Override
+	public Iterable<Friend> findAll() {
+		return friendRepository.findAll();
 	}
 	
 	@Override
@@ -128,8 +148,8 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 		friendRepository.delete(e);
 	}
 
-	
-
-	
-
+	@Override
+	public Friend findById(Long id) {
+		return null;
+	}
 }
