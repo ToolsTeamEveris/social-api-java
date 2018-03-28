@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,27 +29,29 @@ public class EventController {
 		this.eventManager = eventManager;
 		this.personManager = personManager;
 	}
+	
+	@GetMapping(value="/event/search/{text}")
+	@ResponseBody
+	public List<Event> searchPerson(@PathVariable String text) {
+		return eventManager.findByCustomText(text);
+	}
 		
 	@GetMapping(value="/event")
 	@ResponseBody
 	public Iterable<Event> getAll() {
-		return this.eventManager.findAll();
+		return eventManager.findAll();
 	}
 	
 	@GetMapping(value="/event/{id}")
 	@ResponseBody
 	public Event getById(@PathVariable Long id) {
-		return this.eventManager.findById(id);
+		return eventManager.findById(id);
 	}
 	
-	@PostMapping(value="/event/{eventId}/person/{personId}/add")
+	@PostMapping(value="/event/{eventId}")
 	@ResponseBody
-	public Event addPerson(@PathVariable Long eventId, @PathVariable Long personId) {
-		Event event = eventManager.findById(eventId);
-		Person person = personManager.findById(personId);
-		
-		this.eventManager.addPerson(event, person);
-		return event;
+	public Event addPerson(@RequestHeader("Authorization") String authHeader,@PathVariable Long eventId) {
+		return eventManager.addPerson(authHeader,eventId);	
 	}
 	
 	@GetMapping(value="/event/person/{personId}")
@@ -59,21 +62,23 @@ public class EventController {
 	
 	@PostMapping(value="/event")
 	@ResponseBody
-	public void create(@RequestBody Event event) {
-		this.eventManager.save(event);
+	public Event create(@RequestHeader("Authorization") String authHeader,@RequestBody Event event) {
+		return eventManager.addEvent(authHeader, event);
 	}
 	
 	@PutMapping(value="/event/{id}")
 	@ResponseBody
-	public Event update(@RequestBody Event newEvent, @PathVariable("id") Long oldEventId) {
-		return eventManager.updateEvent(oldEventId, newEvent);
+	public Event update(@RequestHeader("Authorization") String authHeader,
+						@RequestBody Event newEvent, 
+						@PathVariable("id") Long oldEventId) {
+		return eventManager.updateEvent(authHeader,oldEventId, newEvent);
 	}
 	
 	@DeleteMapping(value="/event/{id}")
 	@ResponseBody
-	public void remove(@PathVariable Long id) {
-		Event event = eventManager.findById(id);
-		this.eventManager.remove(event);
+	public Event remove(@RequestHeader("Authorization") String authHeader,
+					   @PathVariable Long id) {
+		return eventManager.removeEvent(authHeader, id);
 	}
 	
 }
