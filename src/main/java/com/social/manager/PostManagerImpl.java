@@ -1,6 +1,7 @@
 package com.social.manager;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class PostManagerImpl implements PostManager<Post> {
 	public List<Post> findAllById(Long id){
 		return this.postRepository.findByCreatorId(id);
 	}
+	
+	public List<Post> findAllByReported(){
+		return this.postRepository.findByReported(true);
+	}
 
 	@Override
 	public void save(Post event) {
@@ -44,8 +49,7 @@ public class PostManagerImpl implements PostManager<Post> {
 
 	@Override
 	public void update(Post e) {
-		// TODO Auto-generated method stub
-		
+		this.postRepository.save(e);	
 	}
 
 	@Override
@@ -61,9 +65,15 @@ public class PostManagerImpl implements PostManager<Post> {
 	}
 
 	@Override
-	public Post addLike(Like like) {
-		// TODO Auto-generated method stub
-		return null;
+	public Post addLike(Long id, Like like) {
+		//Guardar el like antes de asociarlo al post en la BD
+		if(postRepository.findById(id).isPresent()) {
+			Post post = postRepository.findById(id).get();
+			post.getLikes().add(like);
+			return postRepository.save(post);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -77,6 +87,4 @@ public class PostManagerImpl implements PostManager<Post> {
 	public void deleteById(Long id) {
 		this.postRepository.deleteById(id);
 	}
-
-
 }

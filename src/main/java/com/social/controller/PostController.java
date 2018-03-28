@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.social.entity.Like;
 import com.social.entity.Post;
 import com.social.manager.PostManagerImpl;
 
@@ -47,6 +47,18 @@ public class PostController {
 		return this.manager.findAllById(id);
 	}
 	
+	@RequestMapping(value = "/post/reported", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Post> getByReported(){
+		return this.manager.findAllByReported();
+	}
+	
+	@RequestMapping(value = "/post/{id}/like", method = RequestMethod.POST)
+	@ResponseBody
+	public void update(@PathVariable Long id, @RequestBody Like l) {
+		this.manager.addLike(id, l);
+	}
+	
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	@ResponseBody
 	public void create(@RequestBody Post newPost) {
@@ -57,5 +69,11 @@ public class PostController {
 	@ResponseBody
 	public void remove(@PathVariable() Long id) {
 		this.manager.deleteById(id);
+	}
+	
+	@RequestMapping(value = "/put/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public void update(@RequestBody Post e) {
+		this.manager.update(e);
 	}
 }
