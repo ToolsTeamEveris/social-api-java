@@ -25,8 +25,8 @@ public class Like {
 	private Post post;
 	
 	@OneToOne
-	@JoinColumn(name="from")
+	@JoinColumn(name="creator")
 	private Person person;
-	private Date creationDate;
+	private Date creation_date;
 	private LikeType type;
 }
