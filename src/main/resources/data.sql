@@ -8,7 +8,7 @@ insert into Post (id, creator, text, creation_date, lat, lng, reported) values (
 insert into Post (id, creator, text, creation_date, lat, lng, reported) values (1001, 1002, 'eeee', '2018-03-21', 38.4, -2, false);
 insert into Post (id, creator, text, creation_date, lat, lng, reported) values (1002, 1003, 'rrrr', '2018-03-21', 38.4, -0.5, false);
 
-insert into reaccion (id, creator, creation_date, type) values ();
+insert into reaccion (id, creator, creation_date, type, likes) values (1, 1003, '2018-03-12', 1, 1000);
 
 insert into grupo (id, creator, name) values (1000, 1000, 'Group1');
 insert into grupo (id, creator, name) values (1001, 1003, 'Group2');

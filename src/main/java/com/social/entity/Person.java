@@ -36,8 +36,6 @@ public class Person implements UserDetails {
 	private String name;
 	private String surname;
 
-
-
 	@Column(columnDefinition="TEXT")
 	private String picture;
 	

@@ -89,10 +89,7 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	@Override
 	public Friend saveFriendshipRequest(String username,Long id) {
 		String user_logged_str = AuthToken.getAuthenticatedUser(username);
-		user_logged  = personManager.findByUsername(user_logged_str);
-		
-		
-		System.out.println(user_logged.toString());
+		user_logged  = personManager.findByUsername(user_logged_str);		
 		
 		Person userFriend = personManager.findById(id);
 		System.out.println(userFriend.toString());

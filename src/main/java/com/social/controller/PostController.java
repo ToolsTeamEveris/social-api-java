@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,9 +27,21 @@ public class PostController {
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Post> getAll() {
+	public List<Post> getAll(@RequestHeader("Authorization") String authHeader) {
 		return (List<Post>) this.manager.findAll();
 	} 
+	
+	@RequestMapping(value = "/post/mine", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Post> getAllMyPost(@RequestHeader("Authorization") String authHeader) {
+		return (List<Post>) this.manager.findMyPosts(authHeader);
+	}
+	
+	@RequestMapping(value = "/post/all", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Post> getFriendPost(@RequestHeader("Authorization") String authHeader) {
+		return (List<Post>) this.manager.findFriendsPost(authHeader);
+	}
 	
 	@RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
 	@ResponseBody
@@ -50,25 +63,31 @@ public class PostController {
 	
 	@RequestMapping(value = "/post/{id}/like", method = RequestMethod.POST)
 	@ResponseBody
-	public void update(@PathVariable Long id, @RequestBody Like l) {
-		this.manager.addLike(id, l);
+	public void addLike(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody Like l) {
+		this.manager.addLike(id, l, authHeader);
+	}
+	
+	@RequestMapping(value = "/post/{id}/unlike", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void unlike(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody Like l) {
+		this.manager.unlike(id, l, authHeader);
 	}
 	
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	@ResponseBody
-	public void create(@RequestBody Post newPost) {
-		this.manager.save(newPost);
+	public void create(@RequestHeader("Authorization") String authHeader, @RequestBody Post newPost) {
+		this.manager.save(newPost, authHeader);
 	}
 	
 	@RequestMapping(value = "/post/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public void remove(@PathVariable() Long id) {
-		this.manager.deleteById(id);
+	public void remove(@RequestHeader("Authorization") String authHeader, @PathVariable() Long id) {
+		this.manager.deleteById(id, authHeader);
 	}
 	
 	@RequestMapping(value = "/put/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void update(@RequestBody Post e) {
-		this.manager.update(e);
+	public void update(@RequestHeader("Authorization") String authHeader, @RequestBody Post e) {
+		this.manager.update(e, authHeader);
 	}
 }
