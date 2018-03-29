@@ -44,8 +44,6 @@ public class Person implements UserDetails {
 	@JoinColumn(name="userPreferences")
 	private UserPreferences userPreferences;
 
-
-
 	@Column(columnDefinition="TEXT")
 	private String picture;
 	

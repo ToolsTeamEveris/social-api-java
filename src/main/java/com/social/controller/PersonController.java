@@ -73,7 +73,6 @@ public class PersonController  {
 
 		// Updateamos		
 		manager.update(p);
-
 	}
 	/*
 	// TODO relate  -> coger id del token cuando este
