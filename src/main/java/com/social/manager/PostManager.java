@@ -17,4 +17,5 @@ public interface PostManager<E> extends Manager<E> {
 	Post unlike(Long id, Like like, String authHeader);
 	Post undoReport(String authHeader, Long id);
 	void deleteReportedPost(String authHeader, Long id);
+	Post reportPost(String authHeader, Long id);
 }

@@ -67,6 +67,17 @@ public class PostManagerImpl implements PostManager<Post> {
 	}
 	
 	@Override
+	public Post reportPost(String authHeader, Long id) {
+		if(postRepository.findById(id).isPresent()) {
+			Post post = postRepository.findById(id).get();
+			post.setReported(true);
+			return postRepository.save(post);
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
 	public Post undoReport(String username, Long id) {
 		String user_logged_str = AuthToken.getAuthenticatedUser(username);
 		user_logged  = personManager.findByUsername(user_logged_str);

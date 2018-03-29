@@ -63,9 +63,16 @@ public class PostController {
 	
 	@RequestMapping(value = "/post/reported/{id}", method = RequestMethod.PUT)
 	@ResponseBody
+	public Post reportPost(@RequestHeader("Authorization") String authHeader, @PathVariable Long id){
+		return this.manager.reportPost(authHeader, id);
+	}
+	
+	@RequestMapping(value = "/post/unreported/{id}", method = RequestMethod.PUT)
+	@ResponseBody
 	public Post undoReport(@RequestHeader("Authorization") String authHeader, @PathVariable Long id){
 		return this.manager.undoReport(authHeader, id);
-	}
+	}	
+	
 	
 	@RequestMapping(value = "/post/reported/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
