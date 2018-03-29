@@ -64,19 +64,10 @@ public class PersonController  {
 		if (person.getName() != null) p.setName(person.getName());
 		if (person.getSurname() != null) p.setSurname(person.getSurname());
 		//if (person.getPicture() != null) p.setPicture(person.getPicture());
-<<<<<<< HEAD
-		// Updateamos		
-		manager.update(p);
-		// Updateamos	
-		//Hay que hacer update de p no de person, no?
-		manager.update(person);
-=======
-		
 
 		// Updateamos		
 		manager.update(p);
 
->>>>>>> solucion-primarykey-friend
 	}
 	/*
 	// TODO relate  -> coger id del token cuando este
