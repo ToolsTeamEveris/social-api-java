@@ -6,7 +6,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.social.entity.Person;
 
 public class AuthToken {
 

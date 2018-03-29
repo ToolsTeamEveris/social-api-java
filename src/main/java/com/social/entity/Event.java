@@ -36,19 +36,4 @@ public class Event {
 	@Column(columnDefinition="TEXT")
 	private String picture;
 	
-	public void addAssistant(Person assitant) {
-		this.assistants.add(assitant);
-		System.out.println("Assistants: " + assistants);
-	}
-	
-	public void deleteAssistant(Person assistant) {
-		if (this.assistants.contains(assistant)) {
-			this.assistants.remove(assistant);
-		}
-	}
-	
-	public void deleteAllAssistants() {
-		this.assistants.removeAll(assistants);
-	}
-	
 }
