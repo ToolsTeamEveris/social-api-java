@@ -16,6 +16,7 @@ import com.social.entity.Friend;
 import com.social.entity.FriendPK;
 import com.social.entity.Like;
 import com.social.entity.Person;
+import com.social.entity.PersonType;
 import com.social.entity.Post;
 import com.social.repository.FriendRepository;
 import com.social.repository.PostRepository;
@@ -48,12 +49,51 @@ public class PostManagerImpl implements PostManager<Post> {
 		return postRepository.findAll();
 	}
 	
+	@Override
 	public List<Post> findAllById(Long id){
 		return this.postRepository.findByCreatorId(id);
 	}
 	
-	public List<Post> findAllByReported(){
-		return this.postRepository.findByReported(true);
+	@Override
+	public List<Post> findAllByReported(String username){
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+
+		if(user_logged.getType().equals(PersonType.ADMIN)) {
+			return this.postRepository.findByReported(true);
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public Post undoReport(String username, Long id) {
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+		
+		if(user_logged.getType().equals(PersonType.ADMIN)) {
+			if(postRepository.findById(id).isPresent()) {
+				Post post = postRepository.findById(id).get();
+				post.setReported(false);
+				return postRepository.save(post);
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public void deleteReportedPost(String username, Long id) {
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+		
+		if(user_logged.getType().equals(PersonType.ADMIN)) {
+			if(postRepository.findById(id).isPresent()) {
+				postRepository.delete(postRepository.findById(id).get());
+			}		
+		}
 	}
 
 	@Override
@@ -102,7 +142,7 @@ public class PostManagerImpl implements PostManager<Post> {
 			return null;
 	}
 	
-	//REVISAR ESTE
+	@Override
 	public void deleteById(Long id, String username) {
 		String user_logged_str = AuthToken.getAuthenticatedUser(username);
 		user_logged  = personManager.findByUsername(user_logged_str);
@@ -191,5 +231,5 @@ public class PostManagerImpl implements PostManager<Post> {
 	public void update(Post e) {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
 }

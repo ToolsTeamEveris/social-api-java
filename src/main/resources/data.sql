@@ -1,6 +1,7 @@
 insert into Person (id, name, surname, username, password) values (1000, 'Ivan', 'Galan', 'ivan', 'ivan');
 insert into Person (id, name, surname, username, password) values (1002, 'Irene', 'Guijarro', 'irene', 'irene');
 insert into Person (id, name, surname, username, password) values (1003, 'Jose', 'Amores', 'jose', 'jose');
+insert into Person (id, name, surname, username, password, type) values (1004, 'Angel', 'Labrador', 'angel', 'angel', 0);
 
 insert into Event (id, ending_date, name, starting_date, type, creator) values (1000, '2018-03-21', 'Beber agua','2018-03-22', 0, 1002);
 

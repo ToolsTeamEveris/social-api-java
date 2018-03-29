@@ -57,8 +57,20 @@ public class PostController {
 	
 	@RequestMapping(value = "/post/reported", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Post> getByReported(){
-		return this.manager.findAllByReported();
+	public List<Post> getByReported(@RequestHeader("Authorization") String authHeader){
+		return this.manager.findAllByReported(authHeader);
+	}
+	
+	@RequestMapping(value = "/post/reported/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Post undoReport(@RequestHeader("Authorization") String authHeader, @PathVariable Long id){
+		return this.manager.undoReport(authHeader, id);
+	}
+	
+	@RequestMapping(value = "/post/reported/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteReportedPost(@RequestHeader("Authorization") String authHeader, @PathVariable Long id){
+		this.manager.deleteReportedPost(authHeader, id);
 	}
 	
 	@RequestMapping(value = "/post/{id}/like", method = RequestMethod.POST)

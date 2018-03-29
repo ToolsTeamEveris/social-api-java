@@ -40,6 +40,7 @@ public class Person implements UserDetails {
     private String password;
 	private String name;
 	private String surname;
+	private PersonType type;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="userPreferences")
 	private UserPreferences userPreferences;
