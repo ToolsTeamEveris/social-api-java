@@ -62,6 +62,7 @@ public final class LikeManagerImpl implements LikeManager {
 		
 	}
 	
+	@Override
 	public List<Like> findAllById(Long id){
 		return this.likeRepository.findByCreatorId(id);
 	}
