@@ -35,6 +35,12 @@ public class PersonController  {
 		this.manager.findAll().forEach( p -> persons.add(p));
 		return persons;
 	}
+        
+        @GetMapping(value="/person/me")
+	@ResponseBody
+	public Person getMe(@RequestHeader("Authorization") String authHeader) {
+		return manager.getUserLogged(authHeader);
+	}
 	
 	@GetMapping(value="/person/{id}")
 	@ResponseBody
