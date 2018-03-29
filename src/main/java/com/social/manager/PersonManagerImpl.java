@@ -1,5 +1,6 @@
 package com.social.manager;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.query.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,6 @@ public final class PersonManagerImpl implements PersonManager {
 	@Autowired
 	public PersonManagerImpl(final PersonRepository personRepository) {
 		this.personRepository = personRepository;
-		
 	}
 
 	@Override
