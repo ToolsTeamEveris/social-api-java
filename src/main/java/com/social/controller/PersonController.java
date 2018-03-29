@@ -80,14 +80,10 @@ public class PersonController  {
 		if (person.getSurname() != null) p.setSurname(person.getSurname());
 		//if (person.getPicture() != null) p.setPicture(person.getPicture());
 		
-<<<<<<< HEAD
+
 		// Updateamos		
 		manager.update(p);
-=======
-		// Updateamos	
-		//Hay que hacer update de p no de person, no?
-		manager.update(person);
->>>>>>> 49af8d6058d216e42b630bad71e2434355529dfa
+
 	}
 	/*
 	// TODO relate  -> coger id del token cuando este

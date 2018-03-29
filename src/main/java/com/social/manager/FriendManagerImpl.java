@@ -91,18 +91,20 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 		String user_logged_str = AuthToken.getAuthenticatedUser(username);
 		user_logged  = personManager.findByUsername(user_logged_str);
 		
-		
-		System.out.println(user_logged.toString());
-		
 		Person userFriend = personManager.findById(id);
-		System.out.println(userFriend.toString());
 		Friend friend = new Friend();
-		friend.setFriendPK(new FriendPK(user_logged,userFriend));
-		friend.setAccepted(false);
-		save(friend);
+		Friend exist = friendRepository.findById(new FriendPK(userFriend, user_logged)).get();
 		
+		if(exist != null) {
+			friend.setFriendPK(new FriendPK(user_logged,userFriend));
+			friend.setAccepted(false);
+			save(friend);
+		}else {
+			friend = null;
+		}
 		return friend;
 	}
+	
 	
 	@Override
 	public Friend deleteFriendship(String username,Long id) {
@@ -152,4 +154,6 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	public Friend findById(Long id) {
 		return null;
 	}
+
+	
 }
