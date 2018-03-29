@@ -16,7 +16,6 @@ import com.social.manager.PersonManager;
 
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
 public class GroupController {

@@ -61,14 +61,16 @@ public class PersonController  {
 		String username = AuthToken.getAuthenticatedUser(authHeader);
 		Person p = manager.findByUsername(username);
 
-		if (person.getName() != null) p.setName(person.getName());
-		if (person.getSurname() != null) p.setSurname(person.getSurname());
+		if (person.getName() != null) 
+                    p.setName(person.getName());
+                
+		if (person.getSurname() != null) 
+                    p.setSurname(person.getSurname());
+              
 		//if (person.getPicture() != null) p.setPicture(person.getPicture());
+                
 		// Updateamos		
 		manager.update(p);
-		// Updateamos	
-		//Hay que hacer update de p no de person, no?
-		manager.update(person);
 	}
 	/*
 	// TODO relate  -> coger id del token cuando este

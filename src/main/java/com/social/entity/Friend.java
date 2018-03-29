@@ -13,10 +13,10 @@ import lombok.Data;
 @Table(name="friend_relation")
 public class Friend {
 	
-	@EmbeddedId
-	@Column(columnDefinition="TEXT")
-	private FriendPK friendPK;
-	
-	private Boolean accepted;
+    @EmbeddedId
+    @Column(columnDefinition="TEXT")
+    private FriendPK friendPK;
+
+    private Boolean accepted;
 	
 }

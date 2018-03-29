@@ -75,8 +75,6 @@
 		    <artifactId>org.json</artifactId>
 		    <version>chargebee-1.0</version>
 		</dependency>
-                
-
                 <dependency>
                 	<groupId>com.thetransactioncompany</groupId>
                 	<artifactId>cors-filter</artifactId>
@@ -91,7 +89,24 @@
                     <groupId>org.springframework.security</groupId>
                     <artifactId>spring-security-messaging</artifactId>
                 </dependency>
-               
+	 <dependency>
+	  <groupId>org.springframework.security.oauth</groupId>
+	  <artifactId>spring-security-oauth2</artifactId>
+	  <version>2.3.0.BUILD-SNAPSHOT</version>
+	  <type>jar</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.springframework.security</groupId>
+	  <artifactId>spring-security-oauth2-jose</artifactId>
+	  <version>5.0.2.BUILD-SNAPSHOT</version>
+	  <type>jar</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.springframework.security</groupId>
+	  <artifactId>spring-security-jwt</artifactId>
+	  <version>1.0.8.RELEASE</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
