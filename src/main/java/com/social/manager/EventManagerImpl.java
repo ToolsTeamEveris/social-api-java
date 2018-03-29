@@ -1,11 +1,7 @@
 package com.social.manager;
 
-
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.List;
 
-import javax.activity.InvalidActivityException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;

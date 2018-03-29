@@ -1,19 +1,18 @@
 package com.social.manager;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.List;
-import java.util.Optional;
-
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.h2.util.New;
+
 import org.hibernate.Session;
+
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ import com.social.entity.Friend;
 import com.social.entity.FriendPK;
 import com.social.entity.Person;
 import com.social.repository.FriendRepository;
-import com.social.repository.PersonRepository;
 
 import helper.AuthToken;
 
@@ -80,26 +78,43 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	
 	@Override
 	public Friend confirmFriendShip(String username,Long id) {
-		Friend friend = getFriend(username, id);
-		friend.setAccepted(true);
-		save(friend);
+
+		Person receiver = personManager.findById(id);
+		Friend friend = new Friend();
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+
+		if (friendRepository.findById(new FriendPK(receiver, user_logged)).isPresent()) {
+			friend =  friendRepository.findById(new FriendPK(receiver, user_logged)).get();
+			friend.setAccepted(true);
+			save(friend);
+		}else {
+			friend = null;
+		}
+		
 		return friend;
 	}
 	
 	@Override
 	public Friend saveFriendshipRequest(String username,Long id) {
 		String user_logged_str = AuthToken.getAuthenticatedUser(username);
-		user_logged  = personManager.findByUsername(user_logged_str);		
+		user_logged  = personManager.findByUsername(user_logged_str);
 		
 		Person userFriend = personManager.findById(id);
-		System.out.println(userFriend.toString());
 		Friend friend = new Friend();
-		friend.setFriendPK(new FriendPK(user_logged,userFriend));
-		friend.setAccepted(false);
-		save(friend);
+		//Friend exist = friendRepository.findById(new FriendPK(userFriend, user_logged)).get();
+		//System.out.println(exist.toString());
+		if(!friendRepository.findById(new FriendPK(userFriend, user_logged)).isPresent()) {
+			friend.setFriendPK(new FriendPK(user_logged,userFriend));
+			friend.setAccepted(false);
+			save(friend);
+		}else {
+			friend = null;
+		}
 		
 		return friend;
 	}
+	
 	
 	@Override
 	public Friend deleteFriendship(String username,Long id) {
@@ -149,4 +164,6 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	public Friend findById(Long id) {
 		return null;
 	}
+
+	
 }

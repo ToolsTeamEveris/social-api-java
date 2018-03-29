@@ -21,6 +21,7 @@ import com.social.entity.Friend;
 import com.social.entity.FriendPK;
 import com.social.entity.Person;
 import com.social.repository.PersonRepository;
+import helper.AuthToken;
 
 @Service
 public final class PersonManagerImpl implements PersonManager {
@@ -118,5 +119,11 @@ public final class PersonManagerImpl implements PersonManager {
 		
 		return query.getResultList();
 	}
+
+    @Override
+    public Person getUserLogged(String authHeader) {
+        String userName = AuthToken.getAuthenticatedUser(authHeader);
+        return findByUsername(userName);
+    }
 
 }
