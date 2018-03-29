@@ -56,8 +56,8 @@ public class PersonController  {
 	
 	@PostMapping(value="/person")
 	@ResponseBody
-	public void create(@RequestBody Person person) {
-		this.manager.save(person);
+	public Person create(@RequestBody Person person) {
+		return manager.saveAsDefault(person);
 	}
 
 	@PutMapping(value="/person")
