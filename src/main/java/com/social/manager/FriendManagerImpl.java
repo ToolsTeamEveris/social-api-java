@@ -73,7 +73,15 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	
 	@Override
 	public Friend confirmFriendShip(String username,Long id) {
-		Friend friend = getFriend(username, id);
+
+		Person receiver = personManager.findById(id);
+		Friend friend = new Friend();
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+
+		if (friendRepository.findById(new FriendPK(receiver, user_logged)).isPresent())
+			friend =  friendRepository.findById(new FriendPK(receiver, user_logged)).get();
+		
 		friend.setAccepted(true);
 		save(friend);
 		return friend;
