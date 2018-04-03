@@ -20,8 +20,10 @@ import org.springframework.stereotype.Service;
 import com.social.entity.Friend;
 import com.social.entity.FriendPK;
 import com.social.entity.Person;
+import com.social.entity.UserPreferences;
 import com.social.repository.PersonRepository;
 import helper.AuthToken;
+import helper.DefaultValues;
 
 @Service
 public final class PersonManagerImpl implements PersonManager {
@@ -40,6 +42,17 @@ public final class PersonManagerImpl implements PersonManager {
 		this.personRepository = personRepository;
 	}
 
+	@Override
+	public Person saveAsDefault(Person person) {
+		UserPreferences userPreferences = new UserPreferences();
+		userPreferences.setBackgroundColor( DefaultValues.DEFAULT_COLOR);
+		userPreferences.setBackgroundImage(DefaultValues.DEFAULT_BACKGROUND);
+		userPreferences.setFontStyle(DefaultValues.DEFAULT_FONT);
+		person.setUserPreferences(userPreferences);
+		save(person);
+		return person;
+	}
+	
 	@Override
 	public Iterable<Person> findAll() {
 		return personRepository.findAll();
@@ -125,5 +138,7 @@ public final class PersonManagerImpl implements PersonManager {
         String userName = AuthToken.getAuthenticatedUser(authHeader);
         return findByUsername(userName);
     }
+
+	
 
 }

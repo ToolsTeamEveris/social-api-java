@@ -6,7 +6,11 @@
 package com.social.manager;
 
 import com.social.entity.Person;
+import com.social.entity.UserPreferences;
 import com.social.repository.PersonRepository;
+
+import helper.DefaultValues;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +33,12 @@ public class AuthManager {
         //Create a new password encoder
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+        UserPreferences userPreferences = new UserPreferences();
+		userPreferences.setBackgroundColor( DefaultValues.DEFAULT_COLOR);
+		userPreferences.setBackgroundImage(DefaultValues.DEFAULT_BACKGROUND);
+		userPreferences.setFontStyle(DefaultValues.DEFAULT_FONT);
+		user.setUserPreferences(userPreferences);
+		
         //Encode the password
         String password = user.getPassword();
         String hashedPassword = passwordEncoder.encode(password);
