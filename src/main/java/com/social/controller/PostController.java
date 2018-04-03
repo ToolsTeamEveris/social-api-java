@@ -104,7 +104,7 @@ public class PostController {
 		this.manager.deleteById(id, authHeader);
 	}
 	
-	@RequestMapping(value = "/put/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/post/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public void update(@RequestHeader("Authorization") String authHeader, @RequestBody Post e) {
 		this.manager.update(e, authHeader);
