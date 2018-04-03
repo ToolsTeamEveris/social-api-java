@@ -1,7 +1,4 @@
 package com.social.controller;
-import org.json.*;
-
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,25 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.social.entity.Person;
 import com.social.manager.PersonManager;
 
 import helper.AuthToken;
-
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.GeneralSecurityException;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.Signature;
-import java.security.spec.RSAPublicKeySpec;
-import org.apache.commons.codec.binary.Base64;
-
 
 @RestController
 public class PersonController  {
@@ -49,6 +34,12 @@ public class PersonController  {
 		List<Person> persons = new ArrayList<>();
 		this.manager.findAll().forEach( p -> persons.add(p));
 		return persons;
+	}
+        
+        @GetMapping(value="/person/me")
+	@ResponseBody
+	public Person getMe(@RequestHeader("Authorization") String authHeader) {
+		return manager.getUserLogged(authHeader);
 	}
 	
 	@GetMapping(value="/person/{id}")
@@ -73,8 +64,8 @@ public class PersonController  {
 	
 	@PostMapping(value="/person")
 	@ResponseBody
-	public void create(@RequestBody Person person) {
-		this.manager.save(person);
+	public Person create(@RequestBody Person person) {
+		return manager.saveAsDefault(person);
 	}
 
 	@PutMapping(value="/person")
@@ -94,22 +85,7 @@ public class PersonController  {
 		
 		return p;
 	}
-	/*
-	// TODO relate  -> coger id del token cuando este
-	@PostMapping(value="/person/{id}/relate")
-	@ResponseBody
-	public void relate(@PathVariable Long id) {		
-		manager.relatePerson(id);
-	}
-	/*
-	// TODO ruta que te devuelva todos los amigos de una persona -> por comprobar
-	@GetMapping(value="/person/friends")
-	@ResponseBody
-	public Iterable<Person> getAllFriends(Long id) {
-		Person user = this.manager.findById(id);
-		return user.getFriends();
-	}
-	*/
+
 	@DeleteMapping(value="/person/{id}")
 	@ResponseBody
 	public void remove(@PathVariable Long id) {

@@ -25,8 +25,8 @@ class JwtUtil {
         String token = Jwts.builder()
             .setSubject(username)
                 
-            // Vamos a asignar un tiempo de expiracion de 60 minutos
-            .setExpiration(new Date(System.currentTimeMillis() + 3600000))
+            // Vamos a asignar un tiempo de expiracion de 1 día
+            .setExpiration(new Date(System.currentTimeMillis() + 86400000))
             
             // Hash con el que firmaremos la clave
             .signWith(SignatureAlgorithm.HS512, "P@tit0")

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -17,8 +19,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
+
+import org.hibernate.engine.internal.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -35,15 +40,14 @@ public class Person implements UserDetails {
     private String password;
     private String name;
 	private String surname;
-	
-	/*@JsonProperty(access= Access.WRITE_ONLY)
-	
-	@OneToMany(mappedBy = "sourceUser")
-	private List<Person> friends;*/
+	private PersonType type;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="userPreferences")
+	private UserPreferences userPreferences;
 
 	@Column(columnDefinition="TEXT")
 	private String picture;
-
+	
     @JsonProperty(access = Access.WRITE_ONLY)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
