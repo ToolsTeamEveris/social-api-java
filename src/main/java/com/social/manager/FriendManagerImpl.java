@@ -1,5 +1,7 @@
 package com.social.manager;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -82,11 +84,14 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 		String user_logged_str = AuthToken.getAuthenticatedUser(username);
 		user_logged  = personManager.findByUsername(user_logged_str);
 
-		if (friendRepository.findById(new FriendPK(receiver, user_logged)).isPresent())
+		if (friendRepository.findById(new FriendPK(receiver, user_logged)).isPresent()) {
 			friend =  friendRepository.findById(new FriendPK(receiver, user_logged)).get();
+			friend.setAccepted(true);
+			save(friend);
+		}else {
+			friend = null;
+		}
 		
-		friend.setAccepted(true);
-		save(friend);
 		return friend;
 	}
 	
@@ -97,27 +102,39 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 		
 		Person userFriend = personManager.findById(id);
 		Friend friend = new Friend();
-		Friend exist = friendRepository.findById(new FriendPK(userFriend, user_logged)).get();
 		
-		if(exist != null) {
+		if(!friendRepository.findById(new FriendPK(userFriend, user_logged)).isPresent()) {
 			friend.setFriendPK(new FriendPK(user_logged,userFriend));
 			friend.setAccepted(false);
 			save(friend);
 		}else {
 			friend = null;
 		}
+		
 		return friend;
 	}
 	
 	
 	@Override
 	public Friend deleteFriendship(String username,Long id) {
-		Friend friend = getFriend(username, id);
-		remove(friend);
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+		
+		Person receiver = personManager.findById(id);
+		Friend friend = new Friend();
+		
+		if (friendRepository.findById(new FriendPK(receiver, user_logged)).isPresent()) {
+			friend =  friendRepository.findById(new FriendPK(receiver, user_logged)).get();
+			remove(friend);
+		}else if (friendRepository.findById(new FriendPK(user_logged, receiver)).isPresent()){
+			friend =  friendRepository.findById(new FriendPK(user_logged, receiver)).get();
+			remove(friend);
+		}else {
+			friend = null;
+		}
+		
 		return friend;
 	}
-	
-	
 	
 	@Override
 	public Iterable<Friend> findAll() {
@@ -159,5 +176,4 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 		return null;
 	}
 
-	
 }

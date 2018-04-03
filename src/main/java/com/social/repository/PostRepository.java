@@ -10,5 +10,6 @@ import com.social.manager.Manager;
 public interface PostRepository extends CrudRepository<Post, Long> {
 
 	List<Post> findByCreatorId(Long personId);
+	List<Post> findByReported(boolean reported);
 	
 }
