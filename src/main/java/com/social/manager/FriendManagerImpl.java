@@ -8,6 +8,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+
+import org.hibernate.Session;
+
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,7 +76,15 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	
 	@Override
 	public Friend confirmFriendShip(String username,Long id) {
-		Friend friend = getFriend(username, id);
+
+		Person receiver = personManager.findById(id);
+		Friend friend = new Friend();
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+
+		if (friendRepository.findById(new FriendPK(receiver, user_logged)).isPresent())
+			friend =  friendRepository.findById(new FriendPK(receiver, user_logged)).get();
+		
 		friend.setAccepted(true);
 		save(friend);
 		return friend;
@@ -84,18 +95,20 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 		String user_logged_str = AuthToken.getAuthenticatedUser(username);
 		user_logged  = personManager.findByUsername(user_logged_str);
 		
-		
-		System.out.println(user_logged.toString());
-		
 		Person userFriend = personManager.findById(id);
-		System.out.println(userFriend.toString());
 		Friend friend = new Friend();
-		friend.setFriendPK(new FriendPK(user_logged,userFriend));
-		friend.setAccepted(false);
-		save(friend);
+		Friend exist = friendRepository.findById(new FriendPK(userFriend, user_logged)).get();
 		
+		if(exist != null) {
+			friend.setFriendPK(new FriendPK(user_logged,userFriend));
+			friend.setAccepted(false);
+			save(friend);
+		}else {
+			friend = null;
+		}
 		return friend;
 	}
+	
 	
 	@Override
 	public Friend deleteFriendship(String username,Long id) {
@@ -145,4 +158,6 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	public Friend findById(Long id) {
 		return null;
 	}
+
+	
 }

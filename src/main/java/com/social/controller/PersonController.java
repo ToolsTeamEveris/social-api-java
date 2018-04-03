@@ -35,6 +35,12 @@ public class PersonController  {
 		this.manager.findAll().forEach( p -> persons.add(p));
 		return persons;
 	}
+        
+        @GetMapping(value="/person/me")
+	@ResponseBody
+	public Person getMe(@RequestHeader("Authorization") String authHeader) {
+		return manager.getUserLogged(authHeader);
+	}
 	
 	@GetMapping(value="/person/{id}")
 	@ResponseBody
@@ -68,9 +74,9 @@ public class PersonController  {
                     p.setSurname(person.getSurname());
               
 		//if (person.getPicture() != null) p.setPicture(person.getPicture());
-                
 		// Updateamos		
 		manager.update(p);
+
 	}
 	/*
 	// TODO relate  -> coger id del token cuando este

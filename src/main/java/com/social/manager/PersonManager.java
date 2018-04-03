@@ -9,4 +9,5 @@ public interface PersonManager extends Manager<Person> {
 	void updatePerson(Long id, Person person);
     Person findByUsername(String username);
 	List<Person> findByCustomText(String text);
+        Person getUserLogged(String authHeader);
 }
