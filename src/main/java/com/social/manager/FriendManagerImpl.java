@@ -1,18 +1,12 @@
 package com.social.manager;
 
-import java.util.List;
-import java.util.Optional;
-
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.h2.util.New;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +16,6 @@ import com.social.entity.Friend;
 import com.social.entity.FriendPK;
 import com.social.entity.Person;
 import com.social.repository.FriendRepository;
-import com.social.repository.PersonRepository;
 
 @Service
 public class FriendManagerImpl implements FriendManager<Friend>{
@@ -87,7 +80,7 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 		Friend friend = new Friend();
 		friend.setFriendPK(new FriendPK(user_logged,userFriend));
 		friend.setAccepted(false);
-		save(friend);;
+		save(friend);
 		return friend;
 	}
 	

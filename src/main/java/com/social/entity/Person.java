@@ -33,7 +33,7 @@ public class Person implements UserDetails {
     private String username;
     @JsonProperty(access = Access.WRITE_ONLY) // no lo devuelve en el body de la respuesta
     private String password;
-	private String name;
+    private String name;
 	private String surname;
 	
 	/*@JsonProperty(access= Access.WRITE_ONLY)
