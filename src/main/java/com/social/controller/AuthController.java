@@ -24,7 +24,10 @@ public class AuthController {
 	@PostMapping(value="/auth/register")
 	@ResponseBody
 	public void verify(@RequestBody Person user) {
-            authManager.register(user);
+		
+		System.out.println(user);	
+		
+        authManager.register(user);
 	}
         
         @RequestMapping("/auth/google")

@@ -48,6 +48,14 @@ public class PersonController  {
 		return this.manager.findById(id);
 	}
 	
+	@GetMapping(value="/persontoken")
+	@ResponseBody
+	public Person getById(@RequestHeader("Authorization") String authHeader) {
+		String username = AuthToken.getAuthenticatedUser(authHeader);
+		Person p = manager.findByUsername(username);
+		return p;
+	}
+	
 	@GetMapping(value="/person/search/{text}")
 	@ResponseBody
 	public List<Person> searchPerson(@PathVariable String text) {
@@ -62,22 +70,22 @@ public class PersonController  {
 
 	@PutMapping(value="/person")
 	@ResponseBody
-	public void UpdatePerson(@RequestHeader("Authorization") String authHeader, @RequestBody Person person) {
+	public Person UpdatePerson(@RequestHeader("Authorization") String authHeader, @RequestBody Person person) {
 		
 		String username = AuthToken.getAuthenticatedUser(authHeader);
+
 		Person p = manager.findByUsername(username);
 
-		if (person.getName() != null) 
-                    p.setName(person.getName());
-                
-		if (person.getSurname() != null) 
-                    p.setSurname(person.getSurname());
-              
-		//if (person.getPicture() != null) p.setPicture(person.getPicture());
+		if (person.getName().trim().length() > 0) p.setName(person.getName());
+		if (person.getSurname().trim().length() > 0) p.setSurname(person.getSurname());
+		if (person.getPicture().trim().length() > 0) p.setPicture(person.getPicture());
+
 		// Updateamos		
 		manager.update(p);
+		
+		return p;
 	}
-	
+
 	@DeleteMapping(value="/person/{id}")
 	@ResponseBody
 	public void remove(@PathVariable Long id) {
