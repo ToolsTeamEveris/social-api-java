@@ -3,7 +3,10 @@ package com.social.manager;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -43,6 +46,31 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 								final PersonManagerImpl personManager) {
 		this.friendRepository = friendRepository;
 		this.personManager = personManager;
+	}
+	
+	@Override
+	public List<Friend> suggestedFriends(String username, int limit) {
+		Random random = new Random();
+		//Get the logged user
+		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		user_logged  = personManager.findByUsername(user_logged_str);
+		List<Friend> friends = getRelatedPersons(username);
+		List<Friend> friendsOfFriends = new ArrayList<>();
+		friends.forEach((f) -> {
+			String user = ""; 
+			if(f.getFriendPK().getSender_user().getUsername().equals(user_logged_str)) {
+				user = f.getFriendPK().getReceiver_user().getUsername();
+			}else {
+				user = f.getFriendPK().getSender_user().getUsername();
+			}
+			List<Friend> fList = getRelatedPersons(user);
+			fList.forEach((ff) -> friendsOfFriends.add(ff));
+		});
+		
+		while (friendsOfFriends.size() > limit) {
+			friendsOfFriends.remove(random.nextInt(friendsOfFriends.size()));
+		}
+		return friendsOfFriends;
 	}
 
 	@Override
@@ -175,5 +203,7 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	public Friend findById(Long id) {
 		return null;
 	}
+
+	
 
 }

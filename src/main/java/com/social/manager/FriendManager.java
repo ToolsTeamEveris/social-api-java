@@ -11,4 +11,5 @@ public interface FriendManager<E> extends Manager<E> {
 	Friend deleteFriendship(String username,Long id);
 	List<Friend> getRelatedPersons(String username);
 	Friend getFriend(String username,Long id);
+	List<Friend> suggestedFriends(String username, int limit);
 }
