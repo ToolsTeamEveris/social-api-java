@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable().authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-//                .antMatchers("/auth/register").permitAll()
+                .antMatchers("/socket/**").permitAll()
                 .anyRequest().authenticated() // cualquier otra peticion requiere autenticacion
                 .and()
                 // Las peticiones /login pasaran previamente por este filtro

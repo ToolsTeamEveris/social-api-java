@@ -1,6 +1,5 @@
 package com.social.manager;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -11,7 +10,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 
-import org.hibernate.Session;
 
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
