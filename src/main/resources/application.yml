@@ -5,10 +5,10 @@ spring:
         hikari:
             connection-timeout: 60000
             maximum-pool-size: 5
-        url: jdbc:h2:mem:~/db_friendsnet;DB_CLOSE_DELAY=1000
-        driverClassName: org.h2.Driver
-        username: sa
-        password: 
+        url: jdbc:mysql://10.129.100.35:3306/facegular
+        driverClassName: com.mysql.jdbc.Driver
+        username: becario
+        password: becario
         
     jpa:
         hibernate:

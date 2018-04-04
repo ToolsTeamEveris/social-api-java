@@ -4,16 +4,20 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Data
 @Embeddable
 public class FriendPK implements Serializable{
-
-	@Column(length=100000)
+	@ManyToOne
+	@JoinColumn(name="sender", referencedColumnName="id")
 	public Person sender_user;
-	@Column(length=100000)
+	@ManyToOne
+	@JoinColumn(name="receiver", referencedColumnName="id")
 	public Person receiver_user;
 	
 	public FriendPK(Person user, Person friend) {

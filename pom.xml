@@ -107,6 +107,10 @@
 	  <version>1.0.8.RELEASE</version>
 	  <type>jar</type>
 	 </dependency>
+	 <dependency>
+	 	<groupId>mysql</groupId>
+	 	<artifactId>mysql-connector-java</artifactId>
+	 </dependency>
 	</dependencies>
 
 	<build>

@@ -1,5 +1,6 @@
 package com.social.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="user_preferences")
-public class UserPreferences {
+public class UserPreferences implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

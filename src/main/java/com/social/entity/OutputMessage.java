@@ -18,9 +18,9 @@ import lombok.Data;
 public class OutputMessage {
     
     @Id
-    private String from;
-    private String text;
-    private String time;
+    private String mFrom;
+    private String mText;
+    private String mTime;
 
     public OutputMessage(final String from, final String text, final String time) {
         

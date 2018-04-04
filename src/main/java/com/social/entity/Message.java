@@ -19,6 +19,6 @@ import javax.persistence.Id;
 public class Message {
     
     @Id
-    private String from;
-    private String text;
+    private String mFrom;
+    private String mText;
 }

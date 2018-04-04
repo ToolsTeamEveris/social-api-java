@@ -14,9 +14,7 @@ import lombok.Data;
 public class Friend {
 	
     @EmbeddedId
-    @Column(columnDefinition="TEXT")
     private FriendPK friendPK;
-
     private Boolean accepted;
 	
 }
