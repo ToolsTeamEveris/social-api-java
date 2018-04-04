@@ -4,22 +4,27 @@ spring:
     datasource:
         hikari:
             connection-timeout: 60000
-            maximum-pool-size: 5
-        url: jdbc:h2:mem:~/db_friendsnet;DB_CLOSE_DELAY=1000
-        driverClassName: org.h2.Driver
-        username: sa
-        password: 
+            maximum-pool-size: 5 
+        
+        url: jdbc:postgresql://ec2-54-247-111-19.eu-west-1.compute.amazonaws.com:5432/dbluumb8lpocmm
+        driverClassName: org.postgresql.Driver
+        platform: POSTGRESQL
+        username: xdxrcvvlehcwsu
+        password: c7a3b308f098e429150814de0f6106ef8add9aaddab726efaad51546dbddb139
         
     jpa:
+        database: POSTGRESQL
+        show-sql: true
         hibernate:
             ddl-auto: create-drop
-            show-sql: true
+            
     logging:
         level:
             org.springframework: INFO
     server:
+        ssl: 
+          enabled: true
+          
         port: 8080
-    h2:
-        console:
-            enabled: true
-            path: /h2-console
+        
+   
