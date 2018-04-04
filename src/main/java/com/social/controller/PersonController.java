@@ -71,20 +71,14 @@ public class PersonController  {
 	@PutMapping(value="/person")
 	@ResponseBody
 	public Person UpdatePerson(@RequestHeader("Authorization") String authHeader, @RequestBody Person person) {
+				
+		if (AuthToken.getAuthenticatedUser(authHeader).equals(person.getUsername()))
+			manager.update(person);
+		else
+			throw new Error("No se han podido actualizar las preferencias del usuario");
 		
-		String username = AuthToken.getAuthenticatedUser(authHeader);
-
-		Person p = manager.findByUsername(username);
-
-		if (person.getName().trim().length() > 0) p.setName(person.getName());
-		if (person.getSurname().trim().length() > 0) p.setSurname(person.getSurname());
-		if (person.getPicture().trim().length() > 0) p.setPicture(person.getPicture());
-
-		// Updateamos		
-		manager.update(p);
-		
-		return p;
-	}
+		return person;
+	} 
 
 	@DeleteMapping(value="/person/{id}")
 	@ResponseBody

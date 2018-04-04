@@ -3,6 +3,7 @@ package com.social.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class UserPreferences implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String backgroundColor;
+	@Column(columnDefinition="TEXT")
 	private String backgroundImage;
 	private String fontStyle;
 }
