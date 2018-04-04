@@ -23,3 +23,13 @@ spring:
         console:
             enabled: true
             path: /h2-console
+            
+    google:
+        clientId: 269115313905-om54ugojq4p7huf2d1pmm2a28i8377sl.apps.googleusercontent.com
+        clientSecret: ISwNVa-grZECBYz-7IpDFwEd
+        accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+        userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+        redirectUri: http://localhost:8080/auth/google
+    resource:
+        userInfoUri: https://www.googleapis.com/userinfo/v2/me
+        preferTokenInfo: false

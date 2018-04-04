@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.social.entity.Person;
 import com.social.manager.AuthManager;
+import java.security.Principal;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
@@ -27,4 +29,9 @@ public class AuthController {
 		
         authManager.register(user);
 	}
+        
+        @RequestMapping("/auth/google")
+        public Principal user(Principal principal) {
+            return principal;
+        }
 }
