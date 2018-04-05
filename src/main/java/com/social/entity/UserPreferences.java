@@ -21,7 +21,7 @@ public class UserPreferences implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String backgroundColor;
-	@Column(columnDefinition="TEXT")
+	@Column(columnDefinition="TEXT", length= 200000)
 	private String backgroundImage;
 	private String fontStyle;
 }

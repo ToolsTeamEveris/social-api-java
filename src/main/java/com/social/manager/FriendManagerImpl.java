@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.swing.plaf.multi.MultiSeparatorUI;
 
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +48,12 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	}
 	
 	@Override
-	public List<Friend> suggestedFriends(String username, int limit) {
+	public List<Friend> suggestedFriends(String authHeader, int limit) {
 		Random random = new Random();
 		//Get the logged user
-		String user_logged_str = AuthToken.getAuthenticatedUser(username);
+		String user_logged_str = AuthToken.getAuthenticatedUser(authHeader);
 		user_logged  = personManager.findByUsername(user_logged_str);
-		List<Friend> friends = getRelatedPersons(username);
+		List<Friend> friends = getRelatedPersons(authHeader);
 		List<Friend> friendsOfFriends = new ArrayList<>();
 		friends.forEach((f) -> {
 			String user = ""; 
@@ -65,6 +66,11 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 			fList.forEach((ff) -> friendsOfFriends.add(ff));
 		});
 		
+		friendsOfFriends.forEach((f) -> {
+			friendsOfFriends.stream()
+				.filter(p -> personManager.equals(f))
+				.count();
+		});
 		while (friendsOfFriends.size() > limit) {
 			friendsOfFriends.remove(random.nextInt(friendsOfFriends.size()));
 		}
