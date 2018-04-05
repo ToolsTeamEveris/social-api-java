@@ -71,14 +71,7 @@ public class PersonController  {
 	@PutMapping(value="/person")
 	@ResponseBody
 	public Person UpdatePerson(@RequestHeader("Authorization") String authHeader, @RequestBody Person person) {
-				
-		if (AuthToken.getAuthenticatedUser(authHeader).equals(person.getUsername())) {
-			manager.update(person);
-			return person;
-		}
-		else {
-			throw new Error("No se han podido actualizar las preferencias del usuario");		
-		}
+		return manager.updateWithValidation(authHeader, person);
 	} 
 
 	@DeleteMapping(value="/person/{id}")

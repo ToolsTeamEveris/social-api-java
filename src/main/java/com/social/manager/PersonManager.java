@@ -11,4 +11,5 @@ public interface PersonManager extends Manager<Person> {
 	List<Person> findByCustomText(String text);
     Person getUserLogged(String authHeader);
     Person saveAsDefault(Person person);
+    Person updateWithValidation(String token, Person persona);
 }

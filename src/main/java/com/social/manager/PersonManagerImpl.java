@@ -139,6 +139,17 @@ public final class PersonManagerImpl implements PersonManager {
         return findByUsername(userName);
     }
 
+	@Override
+	public Person updateWithValidation(String token, Person persona) {
+		if (AuthToken.getAuthenticatedUser(token).equals(persona.getUsername())) {
+			update(persona);
+			return persona;
+		}
+		else {
+			return null;		
+		}
+	}
+
 	
 
 }
