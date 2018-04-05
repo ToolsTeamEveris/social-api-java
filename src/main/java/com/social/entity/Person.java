@@ -36,6 +36,7 @@ public class Person implements UserDetails {
 	private Long id;
     @Column(unique=true)
     private String username;
+    @Column(updatable=false)
     @JsonProperty(access = Access.WRITE_ONLY) // no lo devuelve en el body de la respuesta
     private String password;
     private String name;
