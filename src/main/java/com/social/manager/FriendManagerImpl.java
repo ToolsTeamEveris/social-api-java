@@ -3,9 +3,14 @@ package com.social.manager;
 
 
 import java.util.ArrayList;
-
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +21,7 @@ import javax.persistence.criteria.Root;
 import javax.swing.plaf.multi.MultiSeparatorUI;
 
 import org.hibernate.query.Query;
+import org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +55,6 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 	
 	@Override
 	public List<Friend> suggestedFriends(String authHeader, int limit) {
-		Random random = new Random();
 		//Get the logged user
 		String user_logged_str = AuthToken.getAuthenticatedUser(authHeader);
 		user_logged  = personManager.findByUsername(user_logged_str);
@@ -66,14 +71,23 @@ public class FriendManagerImpl implements FriendManager<Friend>{
 			fList.forEach((ff) -> friendsOfFriends.add(ff));
 		});
 		
-		friendsOfFriends.forEach((f) -> {
-			friendsOfFriends.stream()
-				.filter(p -> personManager.equals(f))
-				.count();
-		});
-		while (friendsOfFriends.size() > limit) {
-			friendsOfFriends.remove(random.nextInt(friendsOfFriends.size()));
+		Map<Friend, Long> friendMap =
+			    friendsOfFriends
+			    	.stream()
+			    	.filter(ff -> !friends.contains(ff))
+			    	.collect(Collectors.groupingBy( e -> e, Collectors.counting()))
+			    	.entrySet()
+			        .stream()
+			        .sorted(Map.Entry.<Friend, Long>comparingByValue(Comparator.reverseOrder()))
+			        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> {throw new IllegalStateException();}, LinkedHashMap::new));
+		friendsOfFriends.clear();
+		
+		for (Map.Entry<Friend, Long> entry : friendMap.entrySet()) {
+			if(friendsOfFriends.size() < limit) {
+				friendsOfFriends.add(entry.getKey());
+			}
 		}
+		
 		return friendsOfFriends;
 	}
 

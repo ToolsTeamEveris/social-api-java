@@ -30,6 +30,12 @@ public class FriendController {
 	}
 	
 	@ResponseBody
+	@GetMapping(value="/friend/suggested/{limit}")
+	public List<Friend> getSuggested(@RequestHeader("Authorization") String authHeader,@PathVariable int limit) {
+		return (List<Friend>) this.managerImpl.suggestedFriends(authHeader, limit);
+	}
+	
+	@ResponseBody
 	@GetMapping(value="/friend")
 	public List<Friend> getAll(@RequestHeader("Authorization") String authHeader) {
 		return (List<Friend>) this.managerImpl.getRelatedPersons(authHeader);
