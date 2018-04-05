@@ -18,7 +18,7 @@ import lombok.Data;
 public class UserPreferences implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String backgroundColor;
 	@Column(columnDefinition="TEXT", length= 200000)

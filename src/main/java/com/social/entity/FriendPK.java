@@ -2,6 +2,7 @@ package com.social.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -13,10 +14,10 @@ import lombok.Data;
 @Data
 @Embeddable
 public class FriendPK implements Serializable{
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="sender", referencedColumnName="id")
 	public Person sender_user;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="receiver", referencedColumnName="id")
 	public Person receiver_user;
 	

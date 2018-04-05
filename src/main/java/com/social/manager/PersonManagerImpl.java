@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.social.entity.Friend;
 import com.social.entity.FriendPK;
 import com.social.entity.Person;
+import com.social.entity.PersonType;
 import com.social.entity.UserPreferences;
 import com.social.repository.PersonRepository;
 import helper.AuthToken;
@@ -49,6 +50,7 @@ public final class PersonManagerImpl implements PersonManager {
 		userPreferences.setBackgroundImage(DefaultValues.DEFAULT_BACKGROUND);
 		userPreferences.setFontStyle(DefaultValues.DEFAULT_FONT);
 		person.setUserPreferences(userPreferences);
+		person.setType(PersonType.USER);
 		save(person);
 		return person;
 	}

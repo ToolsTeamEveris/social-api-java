@@ -32,7 +32,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class Person implements UserDetails {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
     @Column(unique=true)
     private String username;

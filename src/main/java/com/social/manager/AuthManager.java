@@ -39,7 +39,7 @@ public class AuthManager {
 		userPreferences.setBackgroundImage(DefaultValues.DEFAULT_BACKGROUND);
 		userPreferences.setFontStyle(DefaultValues.DEFAULT_FONT);
 		user.setUserPreferences(userPreferences);
-		//user.setType(PersonType.USER);
+		user.setType(PersonType.USER);
 		
         //Encode the password
         String password = user.getPassword();

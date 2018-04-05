@@ -184,6 +184,8 @@ public class PostManagerImpl implements PostManager<Post> {
 		
 		posts.addAll(postRepository.findByCreatorId(user_logged.getId()));
 		
+		Collections.reverse(posts);
+		
 		return posts;		
 	}
 
