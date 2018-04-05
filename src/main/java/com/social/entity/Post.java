@@ -19,7 +19,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Post {
+public class Post implements Comparable<Post>{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -38,5 +38,10 @@ public class Post {
 	private List<Like> likes;
 	@Column(columnDefinition="TEXT")
 	private String picture;
+	
+	@Override
+	public int compareTo(Post post) {
+		return this.creationDate.compareTo(post.creationDate);
+	}
 	
 }

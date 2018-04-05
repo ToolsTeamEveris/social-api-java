@@ -2,6 +2,7 @@ package com.social.manager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -113,6 +114,7 @@ public class PostManagerImpl implements PostManager<Post> {
 		user_logged  = personManager.findByUsername(user_logged_str);
 		
 		post.setCreator(user_logged);
+		post.setCreationDate(new Date());
 
 		this.postRepository.save(post);
 	}
@@ -189,8 +191,12 @@ public class PostManagerImpl implements PostManager<Post> {
 	public List<Post> findMyPosts(String username) {
 		String user_logged_str = AuthToken.getAuthenticatedUser(username);
 		user_logged  = personManager.findByUsername(user_logged_str);
+		
+		List<Post> myPosts = postRepository.findByCreatorId(user_logged.getId());
+		
+		Collections.reverse(myPosts);
 
-		return postRepository.findByCreatorId(user_logged.getId());
+		return myPosts;
 	}
 
 	@Override
